@@ -4095,7 +4095,7 @@ textarea.form-control-lg {
   justify-content: space-between;
   padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
 }
-@media (max-width: 900px){
+@media (max-width: 933px){
   .navbar{
     --bs-navbar-padding-x: 1.5rem;
   }
@@ -4298,13 +4298,13 @@ textarea.form-control-lg {
     overflow-y: visible;
   }
 }
-@media (max-width: 900px) {
+@media (max-width: 932px) {
   .txt1_visability {
     color: rgba(var(--bs-orange-wdh));
     font-size: 0px;
   }
 }
-@media (min-width: 900px) {
+@media (min-width: 933px) {
   .txt2_visability {
     color: rgba(var(--bs-orange-wdh));
     font-size: 0px;
