@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>13 Wejherowska Drużyna Harcerska</title>
     <link href="../css/style_main.css" rel="stylesheet">
-    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/bootstrap_mod.css" rel="stylesheet">
     <script src="../js/script_main.js"></script>
     <script src="../js/bootstrap.js"></script>
     <script src="../js/bootstrap.bundle.js"></script>
+    <script src="../js/bootstrap.esm.js"></script>
     </head>
 <body>
     <div class="container-fluid">
@@ -20,11 +21,33 @@
                     <a class="navbar-brand txt2_visability" href="#">13 WDH</a>
                 </div>
                 <div class="d-flex flex-column" id="profile">
-                        <button class="btn m-2">Zaloguj się</button>
-                        <button class="btn m-2">Zarejestruj się</button>
+                        <button class="btn btn_important m-1">Zaloguj się</button>
+                        <button class="btn btn_important m-1">Zarejestruj się</button>
                 </div>
             </div>
         </nav>
+    </div>
+    <div class="d-flex flex-column side-navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"  aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse collapse-horizontal" id="collapseWidthExample">
+            <aside class="bg-post w-20 min-vh-90 p-5">
+                <div style="min-height: 120px;">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Strona główna</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                            </li>
+                        </ul>
+                    
+                    </div>
+                </aside>
+            </div>
+        </div>
     </div>
 </body>
 </html>
