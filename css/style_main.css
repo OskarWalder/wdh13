@@ -1,0 +1,11 @@
+
+.main-item{
+    max-width: 100%;
+    padding: 5%;
+    margin-top: 7%;
+    margin-bottom: 7%;
+    background-color: var(--bs-post);
+  }
+  .post-photo{
+    width: 100%;
+  }

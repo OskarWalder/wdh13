@@ -198,6 +198,33 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+@media (min-width: 1200){
+  main{
+    margin-left: 10%;
+    margin-right: 20%;
+  }
+}
+@media (min-width: 933px){
+  main{
+    margin-right: 5%;
+    margin-left: 25%;
+  }
+}
+
+.middle{
+  display: flex;
+  flex-direction: row;
+}
+
 hr {
   margin: 1rem 0;
   color: inherit;
@@ -707,6 +734,7 @@ progress {
   max-width: 7%;
   min-width: 70px;
   height: auto;
+  /* max-height: 220px; */
 }
 
 .img-thumbnail {
@@ -3859,6 +3887,11 @@ textarea.form-control-lg {
   border: 0;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
+@media (min-width: 1200px){
+  .nav-link{
+    font-size: 150%;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .nav-link {
     transition: none;
@@ -4014,8 +4047,29 @@ textarea.form-control-lg {
   .navbar{
     --bs-navbar-padding-x: 1.5rem;
   }
-  .side-navbar-big{
+  .side-navbar-big, .side-navbar-extension{
     display: none;
+  }
+  .sb-w-20 {
+    width: 250px !important;
+  }
+}
+
+@media (min-width: 2000px){
+  .navbar{
+    --bs-navbar-brand-font-size: 200%
+  }
+}
+
+@media (min-width: 2500px){
+  .navbar{
+    --bs-navbar-brand-font-size: 300%
+  }
+}
+
+@media (min-width: 4000px){
+  .navbar{
+    --bs-navbar-brand-font-size: 500%
   }
 }
 
@@ -4258,6 +4312,22 @@ textarea.form-control-lg {
     flex-grow: 0;
     padding: 0;
     overflow-y: visible;
+  }
+}
+.side-navbar, .side-navbar-extension {
+  position: fixed;
+}
+.snb-width{
+    width: 260px;
+}
+@media (max-width: 1400px){
+  .snb-width{
+    width: 210px;
+  }
+}
+@media (min-width: 2000px){
+  .snb-width{
+    width: 20%;
   }
 }
 .side-navbar-small{
@@ -7767,17 +7837,6 @@ textarea.form-control-lg {
 
 .w-20 {
   width: 20% !important;
-}
-
-.sb-w-20 {
-  width: 20% !important;
-  min-width: 250px;
-}
-
-@media (max-width: 933px){
-  .sb-w-20 {
-    width: 250px !important;
-  }
 }
 
 .w-25 {
