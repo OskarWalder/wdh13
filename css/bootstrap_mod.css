@@ -277,16 +277,6 @@ address {
   line-height: inherit;
 }
 
-.aside{
-
-}
-
-@media (min-width: 700px){
-  .button_aside{
-    
-  }
-}
-
 ol,
 ul {
   padding-left: 2rem;
