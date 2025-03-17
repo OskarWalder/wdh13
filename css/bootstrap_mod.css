@@ -4318,17 +4318,7 @@ textarea.form-control-lg {
   position: fixed;
 }
 .snb-width{
-    width: 260px;
-}
-@media (max-width: 1400px){
-  .snb-width{
-    width: 210px;
-  }
-}
-@media (min-width: 2000px){
-  .snb-width{
     width: 20%;
-  }
 }
 .side-navbar-small{
   border-bottom-right-radius: 20px;
