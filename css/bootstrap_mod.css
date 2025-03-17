@@ -219,6 +219,14 @@ main{
     margin-left: 25%;
   }
 }
+.main-item{
+  max-width: 100%;
+  padding: 5%;
+  margin-top: 7%;
+  margin-bottom: 7%;
+  background-color: var(--bs-post);
+  border-radius: 25px;
+}
 
 .middle{
   display: flex;
