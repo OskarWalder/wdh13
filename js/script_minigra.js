@@ -10,6 +10,7 @@ var lilija = '../img/lilija.png';
 let on = true;
 let can = true;
 var btn = document.getElementById("startbtn")
+var againbtn = document.getElementById("againbtn");
 
 function start(){
     timer.textContent = "czas: " + czas
@@ -20,6 +21,8 @@ function start(){
         czas--
         }
     }, 1000);
+
+    againbtn.style.display = "none";
 
 btn.remove();
 
@@ -118,6 +121,16 @@ window.setTimeout(function time() {
     document.getElementById('cont').appendChild(board)
     board.textContent = 'Udało ci się zakończyć grę z wynikiem: ' + score;
     on = false;
+/*
+    againbtn.style.display = "inherit";
+    againbtn.onclick = function(){
+        czas = 30;
+        score = 0;
+        on = true;
+        can = true;
+        start();
+    };
+*/
 }, 30000);
 
 rand();

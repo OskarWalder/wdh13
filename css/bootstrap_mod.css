@@ -219,13 +219,28 @@ main{
     margin-left: 25%;
   }
 }
+
 .main-item{
   max-width: 100%;
   padding: 5%;
-  margin-top: 7%;
   margin-bottom: 7%;
   background-color: var(--bs-post);
   border-radius: 25px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.main-item:first-child{
+  margin-top: 7%;
+}
+
+@media (min-width: 932px) {
+  .main-item{
+    max-width: 80%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
 }
 
 .middle{
