@@ -30,7 +30,7 @@ for (let i = 1; i < 5; i++) {
     for (let a = 1; a < 5; a++) {
         var block = document.createElement('div');
         block.id = (i - 1) * 4 + a;
-        block.className = 'col col-1 border border-3 border-warning-subtle rounded-3 p-2';
+        block.className = 'col col-1 border border-3 border-warning-subtle rounded-3 p-2 game-width'; //Fix - Adaptacja szerokości do erkanu
         row.appendChild(block);
         var img = document.createElement('img');
         img.src = blank;
