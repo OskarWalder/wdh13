@@ -131,7 +131,6 @@ window.setTimeout(function time() {
         on = true;
         can = true;
         start();
-        
     };
 }, 30000);
 
