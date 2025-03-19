@@ -1,0 +1,60 @@
+@font-face {
+    font-family: "Museo 700";
+    src: url("../font/Museo\ 700.otf")
+}
+
+@font-face {
+    font-family: "Museo 300";
+    src: url("../font/Museo\ 300.otf")
+}
+
+@font-face {
+    font-family: "Museo 500";
+    src: url("../font/Museo\ 500.otf")
+}
+
+body{
+    background-color: rgb(255, 125, 20);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main{
+    background-color: #EFDCAB;
+    width: 97vw;
+    height: 98vh;
+    margin-top: 1vh;
+    border-radius: 10px;
+}
+
+main > h3{
+    font-family: "Museo 700",Arial, Helvetica, sans-serif;
+    margin-top: 15%;
+    font-size: xx-large;
+}
+
+main > i{
+    margin-left: 12.5%;
+    align-self: flex-start;
+}
+
+input[type="email"], input[type="password"]{
+    background-color: aliceblue;
+    font-family: "Museo 500",Arial, Helvetica, sans-serif;
+}
+
+.checkbox{
+    display: flex;
+    margin-left: 15%;
+    align-self: flex-start;
+    align-items: center;
+}
+
+.checkbox > p{
+    font-family: "Museo 300",Arial, Helvetica, sans-serif;
+    position: relative;
+    left: 8px;
+    top: 8px;
+}
