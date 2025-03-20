@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2025 at 10:38 PM
+-- Generation Time: Mar 20, 2025 at 08:22 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -83,6 +83,7 @@ CREATE TABLE `profil` (
   `nazwa_uzytkownika` varchar(40) NOT NULL,
   `email` varchar(50) NOT NULL,
   `haslo` varchar(40) NOT NULL,
+  `zgoda_na_przetwarzanie_danych` tinyint(1) NOT NULL DEFAULT 0,
   `punkty` int(11) NOT NULL DEFAULT 0,
   `punkty_alltime` int(11) NOT NULL DEFAULT 0,
   `zdjecie_profilowe` mediumblob DEFAULT NULL COMMENT 'max 16mb',

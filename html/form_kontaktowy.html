@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minigra - 13WDH</title>
+    <title>Formularz kontaktowy - 13 WDH</title> <!-- Tutaj nadajemy tytuł podstrony-->
     <link rel="icon" type="image/x-icon" href="/img/logo_13wdh_o.png">
     <link href="../css/bootstrap_mod.css" rel="stylesheet">
     <link href="../css/bootstrap_mod.css.map" rel="stylesheet">
-    <link href="../css/style_minigame.css" rel="stylesheet">
+
+    <link href="#" rel="stylesheet"> <!-- Tutaj łączymy plik CSS, jeżeli potrzebny -->
     
 </head>
 <body>
@@ -102,29 +103,41 @@
         </div>
 
         <main>
-            <div class="main-item">
-                <div class="container-fluid py-12 text-center" id="cont">
-                    <p>Klikaj na wyskakujące obrazki, aby zdobyć jak najwięcej punktów, przed końcem czasu!</p>
-                    <br>
-                    <div class="row row-2 justify-content-center">
-                        <div class="col col-3 text-center">
-                            <p class="border border-3 border-warning-subtle rounded-3" id="wynik" style="background-color: #EFDCAB;">wynik: 0</p> 
-                            <p class="border border-3 border-warning-subtle rounded-3" id="timer" style="background-color: #EFDCAB;">czas: 0</p>
-                        </div>
-                        
+             <div class="main-item">
+                <form method="post" action="formularz_kontaktowy.php" class="form">
+                    <h1>Formularz kontaktowy</h1>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Adres email*</label>
+                        <input type="email" class="form-control" id="email" placeholder="przykladowy.adres@mail.com" required>
                     </div>
-                </div>
-                <div class="row row-10 justify-content-center" id="board">
-                    <button id="startbtn" onclick="start()" class="btn border border-3 border-warning-subtle rounded-3">Start</button>
-                </div>
-                <button class="row justify-content-center btn border border-3 border-warning-subtle rounded-3" onclick="start()" style="display: none;" id="againbtn">Rozpocznij grę od nowa</button>
-            </div>
+                    <div class="mb-3">
+                        <label for="fullname" class="form-label">Imie i nazwisko*</label>
+                        <input type="text" class="form-control" id="fullname" placeholder="np. Jan Nowak" required maxlength="40">
+                    </div>
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Temat*</label>
+                        <input type="text" class="form-control" id="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Wiadomość*</label>
+                        <textarea class="form-control" id="message" rows="3" required maxlength="300" placeholder="max. 300 znaków"></textarea>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="zgoda">
+                        <label class="form-check-label" for="zgoda">Wyrażam zgodę na przetwarzanie moich danych osobowych*</label>
+                    </div>
+                    <br>
+                    <button class="btn">Wyślij wiadomość</button>
+                    <br><br>
+                    <p>* - wymagane pola</p>
+                </form>
+             </div>
         </main>
     </div>
 
-    <script src="../js/script_minigra.js"></script>
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/bootstrap.bundle.js.map"></script>
-    <script src="../js/script_main.js"></script>
+
+    <script src="#"></script> <!-- Tutaj podłączamy plik JS, jeżeli potrzebny -->
 </body>
 </html>
