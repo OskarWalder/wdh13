@@ -26,32 +26,26 @@ main{
     height: 98vh;
     margin-top: 1vh;
     border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-family: "Museo 500",Arial, Helvetica, sans-serif;
 }
 
-main > h3{
-    margin-top: 15%;
-    font-size: xx-large;
-}
-
-main > i{
-    margin-left: 12.5%;
-    align-self: flex-start;
-}
-
-input[type="email"], input[type="password"]{
-    background-color: aliceblue;
+#potwierdzenie{
+    width: 15px;
 }
 
 .checkbox{
     display: flex;
-    margin-left: 15%;
     align-self: flex-start;
-    align-items: center;
+    margin-left: 25%;
 }
 
 .checkbox > p{
     position: relative;
-    left: 8px;
     top: 8px;
+    left: 10px;
 }
