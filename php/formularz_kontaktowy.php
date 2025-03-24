@@ -9,12 +9,6 @@
             $message = $_POST["message"];
             $zgoda = $_POST["zgoda"];
 
-            // $email = $_POST("email");
-            // $fullname = $_POST("fullname");
-            // $title = $_POST("title");
-            // $message = $_POST("message");
-            // $zgoda = $_POST("zgoda");
-
             // $sql = "INSERT INTO formularze_kontaktowe (email, imie_nazwisko, temat, wiadomosc, zgoda) VALUES ('$email' , '$fullname' , '$title' , '$message' , $zgoda')"; //trzeba jeszcze tabele do tego zrobić w bazie
 
             // $zapytanie = mysqli_query($conn, $sql);
@@ -43,15 +37,15 @@
             $mail->Username = 'api';
             $mail->Password = 'dc199779e3b9efe54e929dd53cb94b39';
 
-            $mail->setFrom($email, $fullname);
+            $mail->setFrom("hello@demomailtrap.co", $fullname);
             $mail->addAddress("13.wejherowska.druzyna.harcerska@gmail.com", "13 Wejherowska Drużyna Harcerska im. bł. Alicji Kotowskiej");
 
-            $mail->Subject = $title;
+            $mail->Subject = ($title . ". Wiadomosc od " . $email);
             $mail->Body = $message;
 
             $mail->send();
 
-            header("Location: sent.html");
+            header("Location: ../html/main.html"); //przekierowuje na tą stronę po wysłaniu
         // }
         mysqli_close($conn);
     // }
