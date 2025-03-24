@@ -104,26 +104,26 @@
 
         <main>
              <div class="main-item">
-                <form method="post" action="formularz_kontaktowy.php" class="form">
+                <form method="post" action="../php/formularz_kontaktowy.php" class="form">
                     <h1>Formularz kontaktowy</h1>
                     <div class="mb-3">
                         <label for="email" class="form-label">Adres email*</label>
-                        <input type="email" class="form-control" id="email" placeholder="przykladowy.adres@mail.com" required>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="przykladowy.adres@mail.com" required>
                     </div>
                     <div class="mb-3">
                         <label for="fullname" class="form-label">Imie i nazwisko*</label>
-                        <input type="text" class="form-control" id="fullname" placeholder="np. Jan Nowak" required maxlength="40">
+                        <input type="text" name="fullname" class="form-control" id="fullname" placeholder="np. Jan Nowak" required maxlength="40">
                     </div>
                     <div class="mb-3">
                         <label for="title" class="form-label">Temat*</label>
-                        <input type="text" class="form-control" id="title" required>
+                        <input type="text" name="title" class="form-control" id="title" required>
                     </div>
                     <div class="mb-3">
                         <label for="message" class="form-label">Wiadomość*</label>
-                        <textarea class="form-control" id="message" rows="3" required maxlength="300" placeholder="max. 300 znaków"></textarea>
+                        <textarea class="form-control" name="message" id="message" rows="3" required maxlength="300" placeholder="max. 300 znaków"></textarea>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="zgoda">
+                        <input class="form-check-input" type="checkbox" name="zgoda" value="" id="zgoda">
                         <label class="form-check-label" for="zgoda">Wyrażam zgodę na przetwarzanie moich danych osobowych*</label>
                     </div>
                     <br>
