@@ -45,7 +45,7 @@
 
             $mail->send();
 
-            header("Location: ../html/main.html"); //przekierowuje na tą stronę po wysłaniu
+            header("Location: ../html/main.php"); //przekierowuje na tą stronę po wysłaniu
         // }
         mysqli_close($conn);
     // }
