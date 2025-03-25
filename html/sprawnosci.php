@@ -1,6 +1,6 @@
-<?php
+<!-- <?php
 session_start();
-?>
+?> -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -94,7 +94,43 @@ session_start();
         </div>
 
         <main>
-             
+        <?php
+
+include("../php/database.php");
+
+$sprawnosci = array();
+
+$sql = "SELECT * FROM sprawnosci";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $sprawnosci[] = $row;
+    }
+} else {
+    
+};
+
+echo '<div class="row">';
+
+for($i = 0; $i < count($sprawnosci); $i++){
+    $img = ($sprawnosci[$i]['zdjecie_sprawnosci']);
+    $nazwa = ($sprawnosci[$i]['nazwa_sprawnosci']);
+    $cena = ($sprawnosci[$i]['cena']);
+    echo '<div class="col col-12 col-sm-6 col-md-4 mb-3"><div class="card border border-3 border-warning rounded-5" style="width: 18rem; margin: 10px;"> <img class="card-img-top border border-3 border-warning rounded-bottom rounded-5" src='.$img.' alt="Card image cap"> <div class="card-body"><h5 class="card-title">'.$nazwa.'</h5><a href="#" class="btn btn-primary">Kup za: '.$cena.'</a></div></div></div>';
+
+    if (($i + 1) % 3 == 0 && ($i + 1) != count($sprawnosci)) {
+        echo '</div><div class="row">';
+    }
+};
+
+?>
+            
+
+
+
+
+
             <!-- Tu znajduje się zawartość podstrony -->
         </main>
     </div>
@@ -104,5 +140,10 @@ session_start();
     <script src="../js/script_navbar.js"></script>
 
     <script src="#"></script> <!-- Tutaj podłączamy plik JS, jeżeli potrzebny -->
+
+
+
+
+
 </body>
 </html>
