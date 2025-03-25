@@ -21,8 +21,8 @@ session_start();
             <div class="container-fluid">
                 <img class="img-fluid-logo img-logo-width" src="../img/logo_13wdh_b.png" alt="logo drużyny">
                 <div class="d-flex text-center">
-                    <a class="navbar-brand txt1_visability" href="../html/main.html">13 Wejherowska Drużyna Harcerska<br>im. bł. Alicji Kotowskiej</a>
-                    <a class="navbar-brand txt2_visability" href="../html/main.html">13 WDH</a>
+                    <a class="navbar-brand txt1_visability" href="../html/main.php">13 Wejherowska Drużyna Harcerska<br>im. bł. Alicji Kotowskiej</a>
+                    <a class="navbar-brand txt2_visability" href="../html/main.php">13 WDH</a>
                 </div>
                 <div class="d-flex flex-column" id="profile">
                         <button class="btn btn_important m-1 profile1" onclick="zaloguj()">Zaloguj się</button>
@@ -39,23 +39,17 @@ session_start();
                 <div class="side-navbar-big bg-brown-light p-5 min-vh-90">
                     <div class="d-flex flex-column" style="min-height: 120px;">
                         <ul class="navbar-nav-big me-auto mb-2 mb-lg-0">
-                            <li class="nav-item txt-white">
-                                <a class="nav-link " href="../html/main.html">Strona główna</a>
+                        <li class="nav-item txt-white">
+                                <a class="nav-link " href="../html/main.php">Strona główna</a>
                             </li>
                             <li class="nav-item txt-white">
-                                <a class="nav-link" href="#">Link 1</a>
+                                <a class="nav-link" href="../html/sprawnosci.php">Sprawności</a>
                             </li>
                             <li class="nav-item txt-white">
-                                <a class="nav-link" href="#">Link 2</a>
+                                <a class="nav-link" href="../html/minigra.php">Minigra</a>
                             </li>
                             <li class="nav-item txt-white">
-                                <a class="nav-link" href="#">Link 3</a>
-                            </li>
-                            <li class="nav-item txt-white">
-                                <a class="nav-link" href="../html/minigra.html">Minigra</a>
-                            </li>
-                            <li class="nav-item txt-white">
-                                <a class="nav-link" href="../html/form_kontaktowy.html">Formularz kontaktowy</a>
+                                <a class="nav-link" href="../html/form_kontaktowy.php">Kontakt</a>
                             </li>
                         </ul>
                     </div>
@@ -73,22 +67,16 @@ session_start();
                                 
                             </div>
                             <li class="nav-item txt-white">
-                                <a class="nav-link " href="../html/main.html">Strona główna</a>
+                                <a class="nav-link " href="../html/main.php">Strona główna</a>
                             </li>
                             <li class="nav-item txt-white">
-                                <a class="nav-link" href="#">Link 1</a>
+                                <a class="nav-link" href="../html/sprawnosci.php">Sprawności</a>
                             </li>
                             <li class="nav-item txt-white">
-                                <a class="nav-link" href="#">Link 2</a>
+                                <a class="nav-link" href="../html/minigra.php">Minigra</a>
                             </li>
                             <li class="nav-item txt-white">
-                                <a class="nav-link" href="#">Link 3</a>
-                            </li>
-                            <li class="nav-item txt-white">
-                                <a class="nav-link" href="../html/minigra.html">Minigra</a>
-                            </li>
-                            <li class="nav-item txt-white">
-                                <a class="nav-link" href="../html/form_kontaktowy.html">Formularz kontaktowy</a>
+                                <a class="nav-link" href="../html/form_kontaktowy.php">Kontakt</a>
                             </li>
                         </ul>
                         <div id="profile">
