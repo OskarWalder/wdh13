@@ -1,13 +1,16 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl-PL">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minigra - 13WDH</title>
+    <title>13 Wejherowska Drużyna Harcerska</title>
     <link rel="icon" type="image/x-icon" href="../img/logo_13wdh_o.png">
     <link href="../css/bootstrap_mod.css" rel="stylesheet">
     <link href="../css/bootstrap_mod.css.map" rel="stylesheet">
-    <link href="../css/style_minigame.css" rel="stylesheet">
+    <link href="../css/style_main.css" rel="stylesheet">
     
 </head>
 <body>
@@ -20,9 +23,9 @@
                     <a class="navbar-brand txt1_visability" href="../html/main.html">13 Wejherowska Drużyna Harcerska<br>im. bł. Alicji Kotowskiej</a>
                     <a class="navbar-brand txt2_visability" href="../html/main.html">13 WDH</a>
                 </div>
-                <div class="d-flex flex-column" id="profile">
-                        <button class="btn btn_important m-1 profile1" onclick="zaloguj()">Zaloguj się</button>
-                        <button class="btn btn_important m-1 profile1" onclick="zarejestruj()">Zarejestruj się</button>
+                <div class="d-flex flex-column" id="profile"> 
+                    <button class="btn btn_important m-1 profile1" onclick="zaloguj()">Zaloguj się</button>
+                    <button class="btn btn_important m-1 profile1" onclick="zarejestruj()">Zarejestruj się</button>         
                 </div>
             </div>
         </nav>
@@ -57,7 +60,7 @@
                     </div>
                 </div>
                 
-                <div class="side-navbar-small collapse collapse-horizontal bg-brown-light p-5" id="collapseWidthExample">
+                <div class="side-navbar-small collapse collapse-horizontal bg-brown-light p-5" id="collapseWidthExample"> 
                     <div class="d-flex flex-column collapse-min-width-side-navbar">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <div class="txt-13wdh-small">
@@ -88,8 +91,8 @@
                             </li>
                         </ul>
                         <div id="profile">
-                            <button class="btn btn_important m-1 profile2">Zaloguj się</button>
-                            <button class="btn btn_important m-1 profile2">Zarejestruj się</button>
+                            <button class="btn btn_important m-1 profile2" onclick="zaloguj()">Zaloguj się</button>
+                            <button class="btn btn_important m-1 profile2" onclick="zarejestruj()">Zarejestruj się</button>
                         </div>
                     </div>
                 </div>
@@ -102,31 +105,73 @@
         </div>
 
         <main>
-            <div class="main-item">
-                <div class="container-fluid py-12 text-center" id="cont">
-                    <p>Klikaj na wyskakujące obrazki, aby zdobyć jak najwięcej punktów, przed końcem czasu!</p>
-                    <br>
-                    <div class="row row-2 justify-content-center">
-                        <div class="col col-3 text-center">
-                            <p class="border border-3 border-warning-subtle rounded-3" id="wynik" style="background-color: #EFDCAB;">wynik: 0</p> 
-                            <p class="border border-3 border-warning-subtle rounded-3" id="timer" style="background-color: #EFDCAB;">czas: 0</p>
+            <!--Przykladowy post-->
+             <div class="main-item">
+                <div class="profile-info">
+                    <div class="profile">
+                        <img src="../img/logo_13wdh_b.png" class="post-photo">
+                        <div style="display: flex; flex-direction: column; position: relative; left: 8px;">
+                            <b>Nazwa uzytkownika</b>
+                            <i>@Uzytkownik</i>
                         </div>
-                        
+                    </div>
+                    <img src="../img/ICONS/edit.svg" style="width: 1.5rem; cursor: pointer;">
+                </div>
+                <br>
+                <div class="post-content">
+                    Przykladowa zawartosc posta
+                    Przykladowa zawartosc posta
+                    Przykladowa zawartosc posta
+                    Przykladowa zawartosc posta
+                    Przykladowa zawartosc posta
+                    Przykladowa zawartosc posta
+                    Przykladowa zawartosc posta
+                    Przykladowa zawartosc posta
+                    Przykladowa zawartosc posta
+                    Przykladowa zawartosc posta
+                    Przykladowa zawartosc posta
+                    Przykladowa zawartosc posta
+                </div>
+                <div class="post-buttons">
+                    <div class="post-likes">
+                        <img src="../img/ICONS/thumb_up.svg" id="like">
+                        <b id="like-posta">0</b>
+                        <img src="../img/ICONS/thumb_down.svg" id="like">
+                    </div>
+                    <img src="../img/ICONS/comment.svg">
+                </div>
+            </div>
+
+            <div class="main-item">
+                <div class="profile-info">
+                    <div class="profile">
+                        <img src="../img/logo_13wdh_b.png" class="post-photo">
+                        <div style="display: flex; flex-direction: column; position: relative; left: 8px;">
+                            <b>Nazwa uzytkownika</b>
+                            <i>@Uzytkownik</i>
+                        </div>
                     </div>
                 </div>
-                <div class="row row-10 justify-content-center" id="board">
-                    <button id="startbtn" onclick="start()" class="btn border border-3 border-warning-subtle rounded-3">Start</button>
+                <br>
+                <div class="post-content">
+                    Przykladowa zawartosc posta
                 </div>
-                <button class="row justify-content-center btn border border-3 border-warning-subtle rounded-3" onclick="start()" style="display: none;" id="againbtn">Rozpocznij grę od nowa</button>
+                <div class="post-buttons">
+                    <div class="post-likes">
+                        <img src="../img/ICONS/thumb_up.svg" id="like">
+                        <b id="like-posta">0</b>
+                        <img src="../img/ICONS/thumb_down.svg" id="like">
+                    </div>
+                    <img src="../img/ICONS/comment.svg">
+                </div>
             </div>
         </main>
     </div>
 
-    <script src="../js/script_minigra.js"></script>
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/bootstrap.bundle.js.map"></script>
     <script src="../js/script_navbar.js"></script>
 
-    <script src="#"></script>
+    <script src="../js/script_main.js"></script>
 </body>
 </html>

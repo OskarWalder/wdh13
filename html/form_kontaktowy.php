@@ -1,9 +1,12 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>13 Wejherowska Drużyna Harcerska</title> <!-- Tutaj nadajemy tytuł podstrony-->
+    <title>Formularz kontaktowy - 13 WDH</title> <!-- Tutaj nadajemy tytuł podstrony-->
     <link rel="icon" type="image/x-icon" href="../img/logo_13wdh_o.png">
     <link href="../css/bootstrap_mod.css" rel="stylesheet">
     <link href="../css/bootstrap_mod.css.map" rel="stylesheet">
@@ -89,8 +92,8 @@
                             </li>
                         </ul>
                         <div id="profile">
-                            <button class="btn btn_important m-1 profile2" onclick="zaloguj()">Zaloguj się</button>
-                            <button class="btn btn_important m-1 profile2" onclick="zarejestruj()">Zarejestruj się</button>
+                            <button class="btn btn_important m-1 profile2">Zaloguj się</button>
+                            <button class="btn btn_important m-1 profile2">Zarejestruj się</button>
                         </div>
                     </div>
                 </div>
@@ -103,8 +106,35 @@
         </div>
 
         <main>
-             
-            <!-- Tu znajduje się zawartość podstrony -->
+             <div class="main-item">
+                <form method="post" action="../php/formularz_kontaktowy.php" class="form">
+                    <h1>Formularz kontaktowy</h1>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Adres email*</label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="przykladowy.adres@mail.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fullname" class="form-label">Imie i nazwisko*</label>
+                        <input type="text" name="fullname" class="form-control" id="fullname" placeholder="np. Jan Nowak" required maxlength="40">
+                    </div>
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Temat*</label>
+                        <input type="text" name="title" class="form-control" id="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Wiadomość*</label>
+                        <textarea class="form-control" name="message" id="message" rows="3" required maxlength="300" placeholder="max. 300 znaków"></textarea>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="zgoda" value="" id="zgoda">
+                        <label class="form-check-label" for="zgoda">Wyrażam zgodę na przetwarzanie moich danych osobowych*</label>
+                    </div>
+                    <br>
+                    <button class="btn">Wyślij wiadomość</button>
+                    <br><br>
+                    <p>* - wymagane pola</p>
+                </form>
+             </div>
         </main>
     </div>
 
