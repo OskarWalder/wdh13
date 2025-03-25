@@ -32,9 +32,10 @@
 }
 
 .post-likes{
-  width: 20%;
+  width: 10%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 @media (max-width: 501px) {
@@ -43,12 +44,23 @@
   }
 }
 
+.icon{
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.icon:hover{
+  background-color: hsla(0, 0%, 50%, 0.5);
+}
+
+.icon:active{
+  background-color: hsl(0, 0%, 40%, 0.5);
+}
+
+
 .post-buttons{
   margin-top: 3%;
   display: flex;
   justify-content: space-between;
-}
-
-.post-buttons img{
-  cursor: pointer;
 }
