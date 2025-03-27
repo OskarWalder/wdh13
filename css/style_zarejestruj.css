@@ -6,7 +6,7 @@ body{
     align-items: center;
 }
 
-main{
+form{
     width: 97vw;
     height: 98vh;
     margin-top: 1vh;
@@ -30,7 +30,7 @@ input[type="text"], input[type="email"], input[type="password"]{
 .checkbox{
     display: flex;
     align-self: flex-start;
-    margin-left: 12.5%;
+    margin-left: 25%;
 }
 
 .checkbox > p{
