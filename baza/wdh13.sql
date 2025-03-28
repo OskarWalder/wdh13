@@ -113,8 +113,18 @@ CREATE TABLE `sprawnosci` (
   `id_sprawnosci` int(11) NOT NULL,
   `nazwa_sprawnosci` varchar(50) NOT NULL,
   `cena` int(11) NOT NULL DEFAULT 9999999,
-  `zdjecie_sprawnosci` mediumblob DEFAULT NULL COMMENT 'max 16mb'
+  `zdjecie_sprawnosci` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sprawnosci`
+--
+
+INSERT INTO `sprawnosci` (`id_sprawnosci`, `nazwa_sprawnosci`, `cena`, `zdjecie_sprawnosci`) VALUES
+(1, 'Ognik', 40, '../img/ognik.jpg'),
+(2, 'Astronom', 40, '../img/Astronom.jpg'),
+(3, 'Historyk', 40, '../img/Historyk.jpg'),
+(4, 'Grafik', 40, '../img/Grafik.jpg');
 
 -- --------------------------------------------------------
 
