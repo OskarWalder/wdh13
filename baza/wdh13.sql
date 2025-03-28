@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2025 at 08:22 PM
+-- Generation Time: Mar 29, 2025 at 12:35 AM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `wdh13`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `formularze_kontaktowe`
+--
+
+CREATE TABLE `formularze_kontaktowe` (
+  `id_formularza` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `imie_nazwisko` varchar(40) NOT NULL,
+  `temat` varchar(50) NOT NULL,
+  `wiadomosc` varchar(300) NOT NULL,
+  `zgoda` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `formularze_kontaktowe`
+--
+
+INSERT INTO `formularze_kontaktowe` (`id_formularza`, `email`, `imie_nazwisko`, `temat`, `wiadomosc`, `zgoda`) VALUES
+(1, 'xxx@gmail.com', 'Oskar Walder', 'Wiadomość testowa', 'Zawartość wiadomości.', 1),
+(11, 'xxx@gmail.com', 'fghfghfg', 'fghdgfg', 'fghfghfg', 1);
 
 -- --------------------------------------------------------
 
@@ -90,6 +113,14 @@ CREATE TABLE `profil` (
   `uprawnienia` varchar(5) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `profil`
+--
+
+INSERT INTO `profil` (`id_profil`, `nazwa_uzytkownika`, `email`, `haslo`, `zgoda_na_przetwarzanie_danych`, `punkty`, `punkty_alltime`, `zdjecie_profilowe`, `uprawnienia`) VALUES
+(1, 'proski37', 'xxx@gmail.com', '$2y$10$fw2O3iG2X4pJieF49cL4I.0xm/nuONsOn', 1, 0, 0, NULL, 'user'),
+(2, 'test', 'fsdfs@sadasdas', '$2y$10$nnmBmBVwoCl2C0KI5wE5H.FO2ZzWjcGt8', 1, 0, 0, NULL, 'user');
+
 -- --------------------------------------------------------
 
 --
@@ -155,6 +186,12 @@ CREATE TABLE `zdobyte_sprawnosci` (
 --
 -- Indeksy dla zrzutów tabel
 --
+
+--
+-- Indeksy dla tabeli `formularze_kontaktowe`
+--
+ALTER TABLE `formularze_kontaktowe`
+  ADD PRIMARY KEY (`id_formularza`);
 
 --
 -- Indeksy dla tabeli `komentarz`
@@ -226,6 +263,12 @@ ALTER TABLE `zdobyte_sprawnosci`
 --
 
 --
+-- AUTO_INCREMENT for table `formularze_kontaktowe`
+--
+ALTER TABLE `formularze_kontaktowe`
+  MODIFY `id_formularza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `logowania`
 --
 ALTER TABLE `logowania`
@@ -247,7 +290,7 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT for table `profil`
 --
 ALTER TABLE `profil`
-  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `ranga`
@@ -259,7 +302,7 @@ ALTER TABLE `ranga`
 -- AUTO_INCREMENT for table `sprawnosci`
 --
 ALTER TABLE `sprawnosci`
-  MODIFY `id_sprawnosci` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sprawnosci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `zdobyte_rangi`

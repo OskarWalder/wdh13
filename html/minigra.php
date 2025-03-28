@@ -79,8 +79,8 @@ session_start();
                             </li>
                         </ul>
                         <div id="profile">
-                            <button class="btn btn_important m-1 profile2">Zaloguj się</button>
-                            <button class="btn btn_important m-1 profile2">Zarejestruj się</button>
+                        <button class="btn btn_important m-1 profile2" onclick="zaloguj()">Zaloguj się</button>
+                        <button class="btn btn_important m-1 profile2" onclick="zarejestruj()">Zarejestruj się</button>
                         </div>
                     </div>
                 </div>

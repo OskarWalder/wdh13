@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="pl-PL">
@@ -23,10 +24,27 @@ session_start();
                     <a class="navbar-brand txt1_visability" href="../html/main.php">13 Wejherowska Drużyna Harcerska<br>im. bł. Alicji Kotowskiej</a>
                     <a class="navbar-brand txt2_visability" href="../html/main.php">13 WDH</a>
                 </div>
-                <div class="d-flex flex-column" id="profile"> 
-                    <button class="btn btn_important m-1 profile1" onclick="zaloguj()">Zaloguj się</button>
-                    <button class="btn btn_important m-1 profile1" onclick="zarejestruj()">Zarejestruj się</button>         
-                </div>
+                    <?php
+                        if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
+                            echo '<div class="d-flex flex-row" id="profile"> 
+                                <div class="col">
+                                    <div class="row"><img src="'.$_SESSION["zdjecie_rangi"].'" alt="ranga_wizualizacja" height="50px"></div>
+                                    <div class="row">'.$_SESSION["ranga"].'</div>
+                                </div>
+                                <div class="col">
+                                    <div class="row"><img src="'.$_SESSION["pfp"].'" alt="pfp" height="50px"></div>
+                                    <div class="row">'.$_SESSION["nazwa"].'</div>
+                                </div>
+                            </div>';
+                            
+                        }
+                        else{
+                            echo '<div class="d-flex flex-col" id="profile"> 
+                                <button class="btn btn_important m-1 profile1" onclick="zaloguj()">Zaloguj się</button>
+                                <button class="btn btn_important m-1 profile1" onclick="zarejestruj()">Zarejestruj się</button>
+                            </div>';
+                        }
+                    ?>
             </div>
         </nav>
     </div>

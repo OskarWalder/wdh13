@@ -32,7 +32,10 @@ session_start();
 
         if(isset($_POST['potwierdzenie']) && $haslo == $pHaslo){
             $hash = password_hash($haslo, PASSWORD_DEFAULT);
-            mysqli_query($conn, "INSERT INTO profil (nazwa_uzytkownika, email, haslo, zgoda_na_przetwarzanie_danych, punkty, punkty_alltime, uprawnienia) VALUES('$nazwa', '$email', '$hash', 1, 0, 0, 'uzytkownik')");
+            mysqli_query($conn, "INSERT INTO profil (nazwa_uzytkownika, email, haslo, zgoda_na_przetwarzanie_danych) VALUES('$nazwa', '$email', '$hash', 1)");
+
+            header("Location: ../html/main.php");
+            echo "<script type='text/javascript'>alert('Teraz możesz się zalogować');</script>";
         }
         mysqli_close($conn);
         ?>

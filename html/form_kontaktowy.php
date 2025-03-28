@@ -80,8 +80,8 @@ session_start();
                             </li>
                         </ul>
                         <div id="profile">
-                            <button class="btn btn_important m-1 profile2">Zaloguj się</button>
-                            <button class="btn btn_important m-1 profile2">Zarejestruj się</button>
+                            <button class="btn btn_important m-1 profile2" onclick="zaloguj()">Zaloguj się</button>
+                            <button class="btn btn_important m-1 profile2" onclick="zarejestruj()">Zarejestruj się</button>
                         </div>
                     </div>
                 </div>
@@ -107,14 +107,14 @@ session_start();
                     </div>
                     <div class="mb-3">
                         <label for="title" class="form-label">Temat*</label>
-                        <input type="text" name="title" class="form-control" id="title" required>
+                        <input type="text" name="title" class="form-control" id="title" required maxlength="50">
                     </div>
                     <div class="mb-3">
                         <label for="message" class="form-label">Wiadomość*</label>
                         <textarea class="form-control" name="message" id="message" rows="3" required maxlength="300" placeholder="max. 300 znaków"></textarea>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="zgoda" value="" id="zgoda">
+                        <input class="form-check-input" type="checkbox" name="zgoda" value="1" id="zgoda" required>
                         <label class="form-check-label" for="zgoda">Wyrażam zgodę na przetwarzanie moich danych osobowych*</label>
                     </div>
                     <br>
