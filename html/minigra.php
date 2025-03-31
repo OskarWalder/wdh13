@@ -14,7 +14,7 @@ session_start();
     
 </head>
 <body>
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="side-navbar-extension snb-width bg-brown-light h-100"> </div>
         <nav class="navbar navbar-expand-lg bg-body-orange-wdh">
             <div class="container-fluid">
@@ -23,10 +23,26 @@ session_start();
                     <a class="navbar-brand txt1_visability" href="../html/main.php">13 Wejherowska Drużyna Harcerska<br>im. bł. Alicji Kotowskiej</a>
                     <a class="navbar-brand txt2_visability" href="../html/main.php">13 WDH</a>
                 </div>
-                <div class="d-flex flex-column" id="profile">
-                        <button class="btn btn_important m-1 profile1" onclick="zaloguj()">Zaloguj się</button>
-                        <button class="btn btn_important m-1 profile1" onclick="zarejestruj()">Zarejestruj się</button>
-                </div>
+                    <?php
+                        if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
+                            echo '<div class="d-flex flex-row" id="profile"> 
+                                <div class="col">
+                                    <div class="row"><img src="'.$_SESSION["zdjecie_rangi"].'" alt="ranga_photo" height="100%"></div>
+                                </div>
+                                <div class="col">
+                                    <div class="row"><img src="../img/pfp/'.$_SESSION["pfp"].'" alt="pfp" height="50px"></div>
+                                    <div class="row">'.$_SESSION["nazwa"].'</div>
+                                </div>
+                            </div>';
+                            
+                        }
+                        else{
+                            echo '<div class="d-flex flex-col" id="profile"> 
+                                <button class="btn btn_important m-1 profile1" onclick="zaloguj()">Zaloguj się</button>
+                                <button class="btn btn_important m-1 profile1" onclick="zarejestruj()">Zarejestruj się</button>
+                            </div>';
+                        }
+                    ?>
             </div>
         </nav>
     </div>
@@ -38,8 +54,11 @@ session_start();
                 <div class="side-navbar-big bg-brown-light p-5 min-vh-90">
                     <div class="d-flex flex-column" style="min-height: 120px;">
                         <ul class="navbar-nav-big me-auto mb-2 mb-lg-0">
-                            <li class="nav-item txt-white">
+                        <li class="nav-item txt-white">
                                 <a class="nav-link " href="../html/main.php">Strona główna</a>
+                            </li>
+                            <li class="nav-item txt-white">
+                                <a class="nav-link" href="../html/onas.php">O naszej drużynie</a>
                             </li>
                             <li class="nav-item txt-white">
                                 <a class="nav-link" href="../html/sprawnosci.php">Sprawności</a>
@@ -51,10 +70,19 @@ session_start();
                                 <a class="nav-link" href="../html/form_kontaktowy.php">Kontakt</a>
                             </li>
                         </ul>
+                        <?php 
+                            if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
+                                echo '<div class="nav-item txt-white pt-5">
+                                        <form action="../php/logout.php" method="post">
+                                            <button name="logout-btn">Wyloguj się</button>
+                                        </form>
+                                    </div>';
+                            }
+                        ?>
                     </div>
                 </div>
                 
-                <div class="side-navbar-small collapse collapse-horizontal bg-brown-light p-5" id="collapseWidthExample">
+                <div class="side-navbar-small collapse collapse-horizontal bg-brown-light p-5" id="collapseWidthExample"> 
                     <div class="d-flex flex-column collapse-min-width-side-navbar">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <div class="txt-13wdh-small">
@@ -69,6 +97,9 @@ session_start();
                                 <a class="nav-link " href="../html/main.php">Strona główna</a>
                             </li>
                             <li class="nav-item txt-white">
+                                <a class="nav-link" href="../html/onas.php">O naszej drużynie</a>
+                            </li>
+                            <li class="nav-item txt-white">
                                 <a class="nav-link" href="../html/sprawnosci.php">Sprawności</a>
                             </li>
                             <li class="nav-item txt-white">
@@ -79,8 +110,8 @@ session_start();
                             </li>
                         </ul>
                         <div id="profile">
-                        <button class="btn btn_important m-1 profile2" onclick="zaloguj()">Zaloguj się</button>
-                        <button class="btn btn_important m-1 profile2" onclick="zarejestruj()">Zarejestruj się</button>
+                            <button class="btn btn_important m-1 profile2" onclick="zaloguj()">Zaloguj się</button>
+                            <button class="btn btn_important m-1 profile2" onclick="zarejestruj()">Zarejestruj się</button>
                         </div>
                     </div>
                 </div>

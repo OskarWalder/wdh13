@@ -28,11 +28,10 @@ session_start();
                         if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
                             echo '<div class="d-flex flex-row" id="profile"> 
                                 <div class="col">
-                                    <div class="row"><img src="'.$_SESSION["zdjecie_rangi"].'" alt="ranga_wizualizacja" height="50px"></div>
-                                    <div class="row">'.$_SESSION["ranga"].'</div>
+                                    <div class="row"><img src="'.$_SESSION["zdjecie_rangi"].'" alt="ranga_photo" height="100%"></div>
                                 </div>
                                 <div class="col">
-                                    <div class="row"><img src="'.$_SESSION["pfp"].'" alt="pfp" height="50px"></div>
+                                    <div class="row"><img src="../img/pfp/'.$_SESSION["pfp"].'" alt="pfp" height="50px"></div>
                                     <div class="row">'.$_SESSION["nazwa"].'</div>
                                 </div>
                             </div>';
@@ -60,6 +59,9 @@ session_start();
                                 <a class="nav-link " href="../html/main.php">Strona główna</a>
                             </li>
                             <li class="nav-item txt-white">
+                                <a class="nav-link" href="../html/onas.php">O naszej drużynie</a>
+                            </li>
+                            <li class="nav-item txt-white">
                                 <a class="nav-link" href="../html/sprawnosci.php">Sprawności</a>
                             </li>
                             <li class="nav-item txt-white">
@@ -69,6 +71,15 @@ session_start();
                                 <a class="nav-link" href="../html/form_kontaktowy.php">Kontakt</a>
                             </li>
                         </ul>
+                        <?php 
+                            if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
+                                echo '<div class="nav-item txt-white pt-5">
+                                        <form action="../php/logout.php" method="post">
+                                            <button name="logout-btn">Wyloguj się</button>
+                                        </form>
+                                    </div>';
+                            }
+                        ?>
                     </div>
                 </div>
                 
@@ -85,6 +96,9 @@ session_start();
                             </div>
                             <li class="nav-item txt-white">
                                 <a class="nav-link " href="../html/main.php">Strona główna</a>
+                            </li>
+                            <li class="nav-item txt-white">
+                                <a class="nav-link" href="../html/onas.php">O naszej drużynie</a>
                             </li>
                             <li class="nav-item txt-white">
                                 <a class="nav-link" href="../html/sprawnosci.php">Sprawności</a>

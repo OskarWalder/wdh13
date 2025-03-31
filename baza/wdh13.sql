@@ -3,8 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2025 at 12:35 AM
--- Generation Time: Mar 29, 2025 at 12:35 AM
+-- Generation Time: Mar 31, 2025 at 09:16 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -70,6 +69,13 @@ CREATE TABLE `logowania` (
   `data_logowania` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `logowania`
+--
+
+INSERT INTO `logowania` (`id_logowania`, `id_profilu`, `data_logowania`) VALUES
+(1, 1, '2025-03-31 20:31:21');
+
 -- --------------------------------------------------------
 
 --
@@ -110,7 +116,7 @@ CREATE TABLE `profil` (
   `zgoda_na_przetwarzanie_danych` tinyint(1) NOT NULL DEFAULT 0,
   `punkty` int(11) NOT NULL DEFAULT 0,
   `punkty_alltime` int(11) NOT NULL DEFAULT 0,
-  `zdjecie_profilowe` mediumblob DEFAULT NULL COMMENT 'max 16mb',
+  `zdjecie_profilowe` text DEFAULT NULL COMMENT 'max 16mb',
   `uprawnienia` varchar(5) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -119,16 +125,9 @@ CREATE TABLE `profil` (
 --
 
 INSERT INTO `profil` (`id_profil`, `nazwa_uzytkownika`, `email`, `haslo`, `zgoda_na_przetwarzanie_danych`, `punkty`, `punkty_alltime`, `zdjecie_profilowe`, `uprawnienia`) VALUES
-(1, 'proski37', 'xxx@gmail.com', '$2y$10$fw2O3iG2X4pJieF49cL4I.0xm/nuONsOn', 1, 0, 0, NULL, 'user'),
-(2, 'test', 'fsdfs@sadasdas', '$2y$10$nnmBmBVwoCl2C0KI5wE5H.FO2ZzWjcGt8', 1, 0, 0, NULL, 'user');
-
---
--- Dumping data for table `profil`
---
-
-INSERT INTO `profil` (`id_profil`, `nazwa_uzytkownika`, `email`, `haslo`, `zgoda_na_przetwarzanie_danych`, `punkty`, `punkty_alltime`, `zdjecie_profilowe`, `uprawnienia`) VALUES
-(1, 'proski37', 'xxx@gmail.com', '$2y$10$fw2O3iG2X4pJieF49cL4I.0xm/nuONsOn', 1, 0, 0, NULL, 'user'),
-(2, 'test', 'fsdfs@sadasdas', '$2y$10$nnmBmBVwoCl2C0KI5wE5H.FO2ZzWjcGt8', 1, 0, 0, NULL, 'user');
+(1, 'proski37', 'xxx@gmail.com', '$2y$10$fw2O3iG2X4pJieF49cL4I.0xm/nuONsOn', 1, 0, 0, 'proski37.jpg', 'admin'),
+(2, 'test', 'fsdfs@sadasdas', '$2y$10$nnmBmBVwoCl2C0KI5wE5H.FO2ZzWjcGt8', 1, 0, 0, NULL, 'user'),
+(3, 'tescik', 'test@mail.com', '$2y$10$/yPJp12qXCibAK.eoOPOD.EqMzr.cx0RG', 1, 0, 0, NULL, 'user');
 
 -- --------------------------------------------------------
 
@@ -161,10 +160,10 @@ CREATE TABLE `sprawnosci` (
 --
 
 INSERT INTO `sprawnosci` (`id_sprawnosci`, `nazwa_sprawnosci`, `cena`, `zdjecie_sprawnosci`) VALUES
-(1, 'Ognik', 40, '../img/ognik.jpg'),
-(2, 'Astronom', 40, '../img/Astronom.jpg'),
-(3, 'Historyk', 40, '../img/Historyk.jpg'),
-(4, 'Grafik', 40, '../img/Grafik.jpg');
+(1, 'Ognik', 40, 'ognik.jpg'),
+(2, 'Astronom', 40, 'Astronom.jpg'),
+(3, 'Historyk', 40, 'Historyk.jpg'),
+(4, 'Grafik', 40, 'Grafik.jpg');
 
 -- --------------------------------------------------------
 
@@ -195,12 +194,6 @@ CREATE TABLE `zdobyte_sprawnosci` (
 --
 -- Indeksy dla zrzutów tabel
 --
-
---
--- Indeksy dla tabeli `formularze_kontaktowe`
---
-ALTER TABLE `formularze_kontaktowe`
-  ADD PRIMARY KEY (`id_formularza`);
 
 --
 -- Indeksy dla tabeli `formularze_kontaktowe`
@@ -284,16 +277,10 @@ ALTER TABLE `formularze_kontaktowe`
   MODIFY `id_formularza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `formularze_kontaktowe`
---
-ALTER TABLE `formularze_kontaktowe`
-  MODIFY `id_formularza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
 -- AUTO_INCREMENT for table `logowania`
 --
 ALTER TABLE `logowania`
-  MODIFY `id_logowania` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_logowania` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `polubienia`
@@ -311,8 +298,7 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT for table `profil`
 --
 ALTER TABLE `profil`
-  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ranga`
@@ -324,8 +310,7 @@ ALTER TABLE `ranga`
 -- AUTO_INCREMENT for table `sprawnosci`
 --
 ALTER TABLE `sprawnosci`
-  MODIFY `id_sprawnosci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-  MODIFY `id_sprawnosci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_sprawnosci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `zdobyte_rangi`

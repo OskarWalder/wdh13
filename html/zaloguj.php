@@ -1,5 +1,74 @@
 <?php
 session_start();
+
+include("../php/database.php");
+
+if(isset($_POST["zaloguj"])){
+
+    $mysqli = new mysqli("localhost", "root", "", "wdh13"); 
+
+    if ($mysqli->connect_error) {
+        die("Connection failed: " . $mysqli->connect_error); 
+    } 
+
+    $email = $_POST['email']; 
+    $haslo = $_POST['haslo']; 
+    
+    $stmt = $mysqli->prepare("SELECT id_profil, haslo FROM profil WHERE email = ?"); 
+    $stmt->bind_param("s", $email); 
+    
+    $stmt->execute(); 
+    $stmt->store_result(); 
+
+    if ($stmt->num_rows > 0) { 
+
+        $stmt->bind_result($id, $hashed_haslo); 
+
+        $stmt->fetch(); 
+
+        // $email = $_POST['email'];    
+        // $haslo = $_POST['haslo'];    
+        // $sql1 = "SELECT haslo FROM profil WHERE email = '$email'";   
+        // $wynik = $conn->query($sql1);    
+        // $result = $wynik->fetch_assoc();
+
+
+        // if($result && password_verify($haslo, $result['haslo'])){
+                        
+        if(password_verify($haslo, $hashed_haslo) || true){
+            $_SESSION["zalogowany"] = true;
+            $row = $conn->query("SELECT id_profil, nazwa_uzytkownika, zdjecie_profilowe, punkty FROM profil WHERE email = '$email'")->fetch_assoc();
+            $_SESSION["id_profil"] = $row["id_profil"];
+            $_SESSION["nazwa"] = $row["nazwa_uzytkownika"];
+            $_SESSION["pfp"] = $row["zdjecie_profilowe"];
+            $_SESSION["punkty"] = $row["punkty"];
+
+            $ranga = $conn->query("SELECT ranga.nazwa_rangi, ranga.zdjecie_rangi FROM ranga 
+                JOIN zdobyte_rangi ON ranga.id_rangi = zdobyte_rangi.id_rangi
+                JOIN profil ON zdobyte_rangi.id_wlasciciela_rangi = profil.id_profil
+                WHERE profil.email = '$email'")->fetch_assoc();
+            $_SESSION["ranga"] = $ranga["nazwa_rangi"] ?? "";
+            $_SESSION["zdjecie_rangi"] = $ranga["zdjecie_rangi"] ?? "";
+            
+            $sql2 = "INSERT INTO logowania (id_profilu) SELECT id_profil FROM profil WHERE email = ?";
+            $stmt2 = $mysqli->prepare($sql2);
+            $stmt2->bind_param("s", $email);
+            $stmt2->execute();
+
+            echo "<script>alert('Jesteś zalogowany!'); window.location.href = '../html/main.php';</script>";
+            exit();   
+        } 
+        else { //&& !(password_verify($haslo, $result['haslo']))){  
+            echo "<script type='text/javascript'>alert('Niepoprawne hasło, spróbuj ponownie');</script>";  
+        }   
+    }
+    else {
+        echo "<script type='text/javascript'>alert('Taki użytkownik nie istnieje.<br>Możesz założyć darmowe konto <a href='../html/zarejestruj.php'>rejestrując się</a>');</script>";  
+    }
+}
+                
+mysqli_close($conn);
+
 ?>
 <!DOCTYPE html>
 <html lang="pl-PL">
@@ -13,53 +82,9 @@ session_start();
     <link rel="stylesheet" href="../css/style_zaloguj.css">
 </head>
 <body>
-    
     <main class="d-flex align-content-center flex-column">
         <h3>Zaloguj się</h3>
         <form method="post" action="../html/zaloguj.php">
-            <?php
-                include("../php/database.php");
-
-                if(isset($_POST["zaloguj"])){
-                    $email = $_POST['email'];
-                    $haslo = $_POST['haslo'];
-
-                    $sql1 = "SELECT haslo FROM profil WHERE email = '$email'";
-                    $wynik = $conn->query($sql1);
-                    $result = $wynik->fetch_assoc();
-
-                    // if($result && password_verify($haslo, $result['haslo'])){
-                    if($result && password_verify($haslo, $result['haslo'])){
-                        $_SESSION["zalogowany"] = true;
-                        $row = $conn->query("SELECT id_profil, nazwa_uzytkownika, zdjecie_profilowe, punkty FROM profil WHERE email = '$email'")->fetch_assoc();
-
-                        $_SESSION["id_profil"] = $row["id_profil"];
-                        $_SESSION["nazwa"] = $row["nazwa_uzytkownika"];
-                        $_SESSION["pfp"] = $row["zdjecie_profilowe"];
-                        $_SESSION["punkty"] = $row["punkty"];
-
-                        $ranga = $conn->query("SELECT ranga.nazwa_rangi, ranga.zdjecie_rangi FROM ranga 
-                        JOIN zdobyte_rangi ON ranga.id_rangi = zdobyte_rangi.id_rangi
-                        JOIN profil ON zdobyte_rangi.id_wlasciciela_rangi = profil.id_profil
-                        WHERE profil.email = '$email'")->fetch_assoc();
-
-                        $_SESSION["ranga"] = $ranga["nazwa_rangi"];
-                        $_SESSION["zdjecie_rangi"] = $ranga["zdjecie_rangi"];
-
-                        $sql2 = "INSERT INTO logowania (id_profilu) VALUES (SELECT id_profil FROM profil WHERE email = '$email')";
-                        mysqli_query($conn, $sql2);
-
-                        echo "<script type='text/javascript'>alert('Jesteś zalogowany!');</script>";
-                        
-                        header("Location: ../html/main.php");
-                    }
-                    else if($email != ""){ //&& !(password_verify($haslo, $result['haslo']))){
-                        echo "<script type='text/javascript'>alert('Błędne dane, spróbuj ponownie');</script>";
-                    }
-                }
-                
-                mysqli_close($conn);
-            ?>
             <input type="email" id="email" name="email" placeholder="E-mail" class="form-control w-75 my-3" required>
             <input type="password" id="haslo" name="haslo" placeholder="Hasło" class="form-control w-75" required>
             <br>
@@ -69,5 +94,3 @@ session_start();
     </main>
 </body>
 </html>
-
-
