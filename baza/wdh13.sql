@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2025 at 09:16 PM
--- Wersja serwera: 10.4.32-MariaDB
--- Wersja PHP: 8.2.12
+-- Czas generowania: 01 Kwi 2025, 13:00
+-- Wersja serwera: 10.4.25-MariaDB
+-- Wersja PHP: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `wdh13`
+-- Baza danych: `wdh13`
 --
 
 -- --------------------------------------------------------
@@ -34,10 +34,10 @@ CREATE TABLE `formularze_kontaktowe` (
   `temat` varchar(50) NOT NULL,
   `wiadomosc` varchar(300) NOT NULL,
   `zgoda` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `formularze_kontaktowe`
+-- Zrzut danych tabeli `formularze_kontaktowe`
 --
 
 INSERT INTO `formularze_kontaktowe` (`id_formularza`, `email`, `imie_nazwisko`, `temat`, `wiadomosc`, `zgoda`) VALUES
@@ -55,7 +55,7 @@ CREATE TABLE `komentarz` (
   `id_posta` int(11) NOT NULL,
   `id_autora_kom` int(11) NOT NULL,
   `tresc` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -67,14 +67,28 @@ CREATE TABLE `logowania` (
   `id_logowania` int(11) NOT NULL,
   `id_profilu` int(11) NOT NULL,
   `data_logowania` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `logowania`
+-- Zrzut danych tabeli `logowania`
 --
 
 INSERT INTO `logowania` (`id_logowania`, `id_profilu`, `data_logowania`) VALUES
-(1, 1, '2025-03-31 20:31:21');
+(1, 1, '2025-03-31 20:31:21'),
+(2, 3, '2025-04-01 09:10:07'),
+(3, 3, '2025-04-01 09:11:17'),
+(4, 3, '2025-04-01 09:17:46'),
+(5, 3, '2025-04-01 09:24:55'),
+(6, 3, '2025-04-01 09:26:10'),
+(7, 3, '2025-04-01 09:49:45'),
+(8, 3, '2025-04-01 09:50:23'),
+(9, 3, '2025-04-01 09:58:40'),
+(10, 4, '2025-04-01 10:11:05'),
+(11, 5, '2025-04-01 10:13:57'),
+(12, 4, '2025-04-01 10:18:23'),
+(13, 6, '2025-04-01 11:15:55'),
+(14, 4, '2025-04-01 11:25:34'),
+(15, 4, '2025-04-01 11:36:47');
 
 -- --------------------------------------------------------
 
@@ -86,7 +100,7 @@ CREATE TABLE `polubienia` (
   `id_polubienia` int(11) NOT NULL,
   `id_uzytkownika` int(11) NOT NULL,
   `id_posta` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -98,9 +112,10 @@ CREATE TABLE `post` (
   `id_posta` int(11) NOT NULL,
   `id_autora_post` int(11) NOT NULL,
   `zdjecie_post` mediumblob DEFAULT NULL,
-  `opis` varchar(300) NOT NULL DEFAULT 'Brak opisu.',
-  `ilosc_polubien` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `opis` varchar(700) NOT NULL DEFAULT 'Brak opisu.',
+  `ilosc_polubien` int(11) NOT NULL DEFAULT 0,
+  `data_utworzenia` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -112,22 +127,24 @@ CREATE TABLE `profil` (
   `id_profil` int(11) NOT NULL,
   `nazwa_uzytkownika` varchar(40) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `haslo` varchar(40) NOT NULL,
+  `haslo` varchar(200) NOT NULL,
   `zgoda_na_przetwarzanie_danych` tinyint(1) NOT NULL DEFAULT 0,
   `punkty` int(11) NOT NULL DEFAULT 0,
   `punkty_alltime` int(11) NOT NULL DEFAULT 0,
-  `zdjecie_profilowe` text DEFAULT NULL COMMENT 'max 16mb',
+  `zdjecie_profilowe` text DEFAULT 'default.jpg',
   `uprawnienia` varchar(5) NOT NULL DEFAULT 'user'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `profil`
+-- Zrzut danych tabeli `profil`
 --
 
 INSERT INTO `profil` (`id_profil`, `nazwa_uzytkownika`, `email`, `haslo`, `zgoda_na_przetwarzanie_danych`, `punkty`, `punkty_alltime`, `zdjecie_profilowe`, `uprawnienia`) VALUES
 (1, 'proski37', 'xxx@gmail.com', '$2y$10$fw2O3iG2X4pJieF49cL4I.0xm/nuONsOn', 1, 0, 0, 'proski37.jpg', 'admin'),
-(2, 'test', 'fsdfs@sadasdas', '$2y$10$nnmBmBVwoCl2C0KI5wE5H.FO2ZzWjcGt8', 1, 0, 0, NULL, 'user'),
-(3, 'tescik', 'test@mail.com', '$2y$10$/yPJp12qXCibAK.eoOPOD.EqMzr.cx0RG', 1, 0, 0, NULL, 'user');
+(3, 'tescik', 'test@mail.com', '$2y$10$/yPJp12qXCibAK.eoOPOD.EqMzr.cx0RG', 1, 0, 0, NULL, 'user'),
+(4, 'dsjofgs', 'xxx@videos.com', '$2y$10$U6OV3tkXRmpUdFSjBL.L5.aVxhF.LVdoPzj04bvi3rMEoOLBNXZeq', 1, 0, 0, NULL, 'user'),
+(5, 'dddddddddd', 'ddd@mail.com', '$2y$10$os3lQ8zn/G9ksFIvY6k9CezvMEP/TT9QJwjv2AnCgXey3GoMGGRpO', 1, 0, 0, NULL, 'user'),
+(6, 'peter', 'peter@gmail.com', '$2y$10$Orn5lvkkHXbzv7P0mKrnHehfUvoAWzFQDjTe09OVhHRtQLWAOPu7C', 1, 0, 0, NULL, 'user');
 
 -- --------------------------------------------------------
 
@@ -140,7 +157,7 @@ CREATE TABLE `ranga` (
   `nazwa_rangi` varchar(50) DEFAULT NULL,
   `prog_punktowy` int(11) NOT NULL,
   `zdjecie_rangi` mediumblob DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -153,10 +170,10 @@ CREATE TABLE `sprawnosci` (
   `nazwa_sprawnosci` varchar(50) NOT NULL,
   `cena` int(11) NOT NULL DEFAULT 9999999,
   `zdjecie_sprawnosci` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `sprawnosci`
+-- Zrzut danych tabeli `sprawnosci`
 --
 
 INSERT INTO `sprawnosci` (`id_sprawnosci`, `nazwa_sprawnosci`, `cena`, `zdjecie_sprawnosci`) VALUES
@@ -176,7 +193,7 @@ CREATE TABLE `zdobyte_rangi` (
   `id_wlasciciela_rangi` int(11) NOT NULL,
   `id_rangi` int(11) NOT NULL,
   `data_zdobycia` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -189,7 +206,7 @@ CREATE TABLE `zdobyte_sprawnosci` (
   `id_wlasciciela_sprawnosci` int(11) NOT NULL,
   `id_sprawnosci` int(11) NOT NULL,
   `data_zdobycia` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indeksy dla zrzutów tabel
@@ -267,102 +284,102 @@ ALTER TABLE `zdobyte_sprawnosci`
   ADD KEY `id_sprawnosci` (`id_sprawnosci`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT dla zrzuconych tabel
 --
 
 --
--- AUTO_INCREMENT for table `formularze_kontaktowe`
+-- AUTO_INCREMENT dla tabeli `formularze_kontaktowe`
 --
 ALTER TABLE `formularze_kontaktowe`
   MODIFY `id_formularza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `logowania`
+-- AUTO_INCREMENT dla tabeli `logowania`
 --
 ALTER TABLE `logowania`
-  MODIFY `id_logowania` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_logowania` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `polubienia`
+-- AUTO_INCREMENT dla tabeli `polubienia`
 --
 ALTER TABLE `polubienia`
   MODIFY `id_polubienia` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `post`
+-- AUTO_INCREMENT dla tabeli `post`
 --
 ALTER TABLE `post`
   MODIFY `id_posta` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `profil`
+-- AUTO_INCREMENT dla tabeli `profil`
 --
 ALTER TABLE `profil`
-  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_profil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `ranga`
+-- AUTO_INCREMENT dla tabeli `ranga`
 --
 ALTER TABLE `ranga`
   MODIFY `id_rangi` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `sprawnosci`
+-- AUTO_INCREMENT dla tabeli `sprawnosci`
 --
 ALTER TABLE `sprawnosci`
   MODIFY `id_sprawnosci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `zdobyte_rangi`
+-- AUTO_INCREMENT dla tabeli `zdobyte_rangi`
 --
 ALTER TABLE `zdobyte_rangi`
   MODIFY `id_zdobytej_rangi` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `zdobyte_sprawnosci`
+-- AUTO_INCREMENT dla tabeli `zdobyte_sprawnosci`
 --
 ALTER TABLE `zdobyte_sprawnosci`
   MODIFY `id_zdobytej_sprawnosci` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- Ograniczenia dla zrzutów tabel
 --
 
 --
--- Constraints for table `komentarz`
+-- Ograniczenia dla tabeli `komentarz`
 --
 ALTER TABLE `komentarz`
   ADD CONSTRAINT `komentarz_ibfk_1` FOREIGN KEY (`id_posta`) REFERENCES `post` (`id_posta`),
   ADD CONSTRAINT `komentarz_ibfk_2` FOREIGN KEY (`id_autora_kom`) REFERENCES `profil` (`id_profil`);
 
 --
--- Constraints for table `logowania`
+-- Ograniczenia dla tabeli `logowania`
 --
 ALTER TABLE `logowania`
   ADD CONSTRAINT `logowania_ibfk_1` FOREIGN KEY (`id_profilu`) REFERENCES `profil` (`id_profil`);
 
 --
--- Constraints for table `polubienia`
+-- Ograniczenia dla tabeli `polubienia`
 --
 ALTER TABLE `polubienia`
   ADD CONSTRAINT `polubienia_ibfk_1` FOREIGN KEY (`id_uzytkownika`) REFERENCES `profil` (`id_profil`),
   ADD CONSTRAINT `polubienia_ibfk_2` FOREIGN KEY (`id_posta`) REFERENCES `post` (`id_posta`);
 
 --
--- Constraints for table `post`
+-- Ograniczenia dla tabeli `post`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`id_autora_post`) REFERENCES `profil` (`id_profil`);
 
 --
--- Constraints for table `zdobyte_rangi`
+-- Ograniczenia dla tabeli `zdobyte_rangi`
 --
 ALTER TABLE `zdobyte_rangi`
   ADD CONSTRAINT `zdobyte_rangi_ibfk_1` FOREIGN KEY (`id_wlasciciela_rangi`) REFERENCES `profil` (`id_profil`),
   ADD CONSTRAINT `zdobyte_rangi_ibfk_2` FOREIGN KEY (`id_rangi`) REFERENCES `ranga` (`id_rangi`);
 
 --
--- Constraints for table `zdobyte_sprawnosci`
+-- Ograniczenia dla tabeli `zdobyte_sprawnosci`
 --
 ALTER TABLE `zdobyte_sprawnosci`
   ADD CONSTRAINT `zdobyte_sprawnosci_ibfk_1` FOREIGN KEY (`id_wlasciciela_sprawnosci`) REFERENCES `profil` (`id_profil`),

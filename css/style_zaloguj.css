@@ -1,5 +1,6 @@
 body{
     background-color: #EFDCAB;
+    width: 100%;
     
     display: flex;
     justify-content: center;
@@ -7,19 +8,19 @@ body{
 }
 
 main{
-    width: 97vw;
+    width: 50%;
     height: 98vh;
-    margin-top: 1vh;
     border-radius: 10px;
     font-family: "Museo 500",Arial, Helvetica, sans-serif;
+    background-color: red;
 }
 
-main > h3{
+h3{
     margin-top: 15%;
     font-size: xx-large;
 }
 
-main > i{
+i{
     margin-left: 12.5%;
     align-self: flex-start;
 }
@@ -28,15 +29,9 @@ input[type="email"], input[type="password"]{
     background-color: aliceblue;
 }
 
-.checkbox{
+form{
     display: flex;
-    margin-left: 15%;
-    align-self: flex-start;
     align-items: center;
-}
-
-.checkbox > p{
-    position: relative;
-    left: 8px;
-    top: 8px;
+    justify-content: center;
+    flex-direction: column;
 }

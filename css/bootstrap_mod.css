@@ -4345,6 +4345,7 @@ textarea.form-control-lg {
 }
 .side-navbar-small{
   border-bottom-right-radius: 20px;
+  z-index: -100;
 }
 @media (max-width: 932px) {
   .txt1_visability {

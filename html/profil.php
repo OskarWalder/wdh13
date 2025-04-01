@@ -6,7 +6,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>13 Wejherowska Drużyna Harcerska</title> <!-- Tutaj nadajemy tytuł podstrony-->
+    <title><?php echo $_SESSION["nazwa"] ?> - profil - 13 WDH</title> <!-- Tutaj nadajemy tytuł podstrony-->
     <link rel="icon" type="image/x-icon" href="../img/logo_13wdh_o.png">
     <link href="../css/bootstrap_mod.css" rel="stylesheet">
     <link href="../css/bootstrap_mod.css.map" rel="stylesheet">

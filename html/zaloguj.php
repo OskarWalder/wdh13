@@ -26,16 +26,9 @@ if(isset($_POST["zaloguj"])){
 
         $stmt->fetch(); 
 
-        // $email = $_POST['email'];    
-        // $haslo = $_POST['haslo'];    
-        // $sql1 = "SELECT haslo FROM profil WHERE email = '$email'";   
-        // $wynik = $conn->query($sql1);    
-        // $result = $wynik->fetch_assoc();
+        $check = password_verify($haslo, $hashed_haslo);
 
-
-        // if($result && password_verify($haslo, $result['haslo'])){
-                        
-        if(password_verify($haslo, $hashed_haslo) || true){
+        if($check){
             $_SESSION["zalogowany"] = true;
             $row = $conn->query("SELECT id_profil, nazwa_uzytkownika, zdjecie_profilowe, punkty FROM profil WHERE email = '$email'")->fetch_assoc();
             $_SESSION["id_profil"] = $row["id_profil"];
@@ -82,15 +75,15 @@ mysqli_close($conn);
     <link rel="stylesheet" href="../css/style_zaloguj.css">
 </head>
 <body>
-    <main class="d-flex align-content-center flex-column">
+    <div class="d-flex align-content-center flex-column main-item text-center">
         <h3>Zaloguj się</h3>
         <form method="post" action="../html/zaloguj.php">
-            <input type="email" id="email" name="email" placeholder="E-mail" class="form-control w-75 my-3" required>
-            <input type="password" id="haslo" name="haslo" placeholder="Hasło" class="form-control w-75" required>
+            <input type="email" id="email" name="email" placeholder="E-mail" class="form-control w-100 my-3" required>
+            <input type="password" id="haslo" name="haslo" placeholder="Hasło" class="form-control w-100" required>
             <br>
             <i class="text-danger" style="display: none;">*Nie udało się zalogować</i>
             <button class="btn form-control w-75" name="zaloguj">Zaloguj się</button>
         </form>
-    </main>
+</div>
 </body>
 </html>

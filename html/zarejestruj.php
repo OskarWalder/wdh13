@@ -28,9 +28,15 @@ session_start();
             $email = $_POST['email'];
             $haslo = $_POST['haslo'];
             $pHaslo = $_POST['p-haslo'];
-        }
+            if(strlen($haslo) >= 8 && preg_match('/[A-Z]/', $haslo) && preg_match('/[a-z]/', $haslo) && preg_match('/[0-9]/', $haslo) && preg_match('/[!#$%&*\-._@]/', $haslo)){
+                $polityka = true;
+            }
+            //Duża litera, mała litera, liczba, znak specjalny(!, #, $, %, &, *, -, ., _, @)
+        };
 
-        if(isset($_POST['potwierdzenie']) && $haslo == $pHaslo){
+        
+
+        if(isset($_POST['potwierdzenie']) && $haslo == $pHaslo && $polityka){
             $hash = password_hash($haslo, PASSWORD_DEFAULT);
             mysqli_query($conn, "INSERT INTO profil (nazwa_uzytkownika, email, haslo, zgoda_na_przetwarzanie_danych) VALUES('$nazwa', '$email', '$hash', 1)");
 

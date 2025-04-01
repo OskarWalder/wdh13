@@ -31,7 +31,7 @@ session_start();
                                     <div class="row"><img src="'.$_SESSION["zdjecie_rangi"].'" alt="ranga_photo" height="100%"></div>
                                 </div>
                                 <div class="col">
-                                    <div class="row"><img src="../img/pfp/'.$_SESSION["pfp"].'" alt="pfp" height="50px"></div>
+                                    <div class="row"><a href="../html/profil.php"><img src="../img/pfp/'.$_SESSION["pfp"].'" alt="pfp" height="50px"></a></div>
                                     <div class="row">'.$_SESSION["nazwa"].'</div>
                                 </div>
                             </div>';
@@ -75,7 +75,7 @@ session_start();
                             if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
                                 echo '<div class="nav-item txt-white pt-5">
                                         <form action="../php/logout.php" method="post">
-                                            <button name="logout-btn">Wyloguj się</button>
+                                            <button class="btn" name="logout-btn">Wyloguj się</button>
                                         </form>
                                     </div>';
                             }
@@ -132,25 +132,12 @@ session_start();
                         <img src="../img/logo_13wdh_b.png" class="post-photo">
                         <div style="display: flex; flex-direction: column; position: relative; left: 8px;">
                             <b>Nazwa uzytkownika</b>
-                            <i>@Uzytkownik</i>
                         </div>
                     </div>
-                    <img src="../img/ICONS/edit.svg" class="icon">
                 </div>
                 <br>
                 <div class="post-content">
-                    Przykladowa zawartosc posta
-                    Przykladowa zawartosc posta
-                    Przykladowa zawartosc posta
-                    Przykladowa zawartosc posta
-                    Przykladowa zawartosc posta
-                    Przykladowa zawartosc posta
-                    Przykladowa zawartosc posta
-                    Przykladowa zawartosc posta
-                    Przykladowa zawartosc posta
-                    Przykladowa zawartosc posta
-                    Przykladowa zawartosc posta
-                    Przykladowa zawartosc posta
+                    gfhgfhfghjgfhgfhg
                 </div>
                 <div class="post-buttons">
                     <div class="post-likes">
