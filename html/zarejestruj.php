@@ -34,8 +34,6 @@ session_start();
             //Duża litera, mała litera, liczba, znak specjalny(!, #, $, %, &, *, -, ., _, @)
         };
 
-        
-
         if(isset($_POST['potwierdzenie']) && $haslo == $pHaslo && $polityka){
             $hash = password_hash($haslo, PASSWORD_DEFAULT);
             mysqli_query($conn, "INSERT INTO profil (nazwa_uzytkownika, email, haslo, zgoda_na_przetwarzanie_danych) VALUES('$nazwa', '$email', '$hash', 1)");

@@ -11,8 +11,7 @@ session_start();
     <link rel="icon" type="image/x-icon" href="../img/logo_13wdh_o.png">
     <link href="../css/bootstrap_mod.css" rel="stylesheet">
     <link href="../css/bootstrap_mod.css.map" rel="stylesheet">
-    <link href="../css/style_main.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="../css/style_main.css">
 </head>
 <body>
     <div class="container-fluid">
@@ -127,51 +126,41 @@ session_start();
         <main>
             <!--Przykladowy post-->
              <div class="main-item">
-                <div class="profile-info">
-                    <div class="profile">
-                        <img src="../img/logo_13wdh_b.png" class="post-photo">
-                        <div style="display: flex; flex-direction: column; position: relative; left: 8px;">
-                            <b>Nazwa uzytkownika</b>
+                <div class="main-content  d-flex flex-row">
+                    <div class="profile-pic">
+                        <img src="../img/lilija.png" style="width: 70px;">
+                    </div>
+                    <div class="post" style="padding-left: 10px;">
+                        <div class="name-date">
+                            <b class="creator-name">Nazwa uzytkownika</b>
+                            &#183;
+                            <i class="post-date">00-00-0000</i>
                         </div>
+                        <p class="post-content">
+                            Tresc posta
+                            Tresc posta
+                            Tresc posta
+                            Tresc posta
+                            Tresc posta
+                            Tresc posta
+                            Tresc posta
+                            resc posta
+                            Tresc posta
+                            Tresc posta
+                            Tresc posta
+                            Tresc posta
+                            Tresc posta
+                            Tresc posta
+                        </p>
                     </div>
                 </div>
-                <br>
-                <div class="post-content">
-                    gfhgfhfghjgfhgfhg
-                </div>
-                <div class="post-buttons">
-                    <div class="post-likes">
-                        <img src="../img/ICONS/thumb_up.svg" class="icon" id="like">
-                        <b id="like-posta">0</b>
-                        <img src="../img/ICONS/thumb_down.svg" class="icon" id="dislike">
+                <div class="post-options d-flex align-items-center justify-content-between" style="height:50px;">
+                    <div class="post-likes" style="width: 5%;">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" fill="#000000"><path d="m480-144-50-45q-100-89-165-152.5t-102.5-113Q125-504 110.5-545T96-629q0-89 61-150t150-61q49 0 95 21t78 59q32-38 78-59t95-21q89 0 150 61t61 150q0 43-14 83t-51.5 89q-37.5 49-103 113.5T528-187l-48 43Zm0-97q93-83 153-141.5t95.5-102Q764-528 778-562t14-67q0-59-40-99t-99-40q-35 0-65.5 14.5T535-713l-35 41h-40l-35-41q-22-26-53.5-40.5T307-768q-59 0-99 40t-40 99q0 33 13 65.5t47.5 75.5q34.5 43 95 102T480-241Zm0-264Z"/></svg>
+                        <b style="font-size: 1rem;">0</b>
                     </div>
-                    <img src="../img/ICONS/comment.svg" class="icon">
+                    <img src="../img/ICONS/comment.svg" style="width: 2rem;">
                 </div>
-            </div>
-
-            <div class="main-item">
-                <div class="profile-info">
-                    <div class="profile">
-                        <img src="../img/logo_13wdh_b.png" class="post-photo">
-                        <div style="display: flex; flex-direction: column; position: relative; left: 8px;">
-                            <b>Nazwa uzytkownika</b>
-                            <i>@Uzytkownik</i>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="post-content">
-                    Przykladowa zawartosc posta
-                </div>
-                <div class="post-buttons">
-                    <div class="post-likes">
-                        <img src="../img/ICONS/thumb_up.svg" class="icon" id="like">
-                        <b id="like-posta">0</b>
-                        <img src="../img/ICONS/thumb_down.svg" class="icon" id="dislike">
-                    </div>
-                    <img src="../img/ICONS/comment.svg" class="icon">
-                </div>
-            </div>
         </main>
     </div>
 
