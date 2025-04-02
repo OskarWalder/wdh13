@@ -81,6 +81,13 @@ session_start();
                             <li class="nav-item txt-white">
                                 <a class="nav-link" href="../html/form_kontaktowy.php">Kontakt</a>
                             </li>
+                            <?php 
+                                if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
+                                    echo '<li class="nav-item txt-white">
+                                            <a class="nav-link" href="../html/profil.php">Profil</a>
+                                        </li>';
+                                }
+                            ?>
                         </ul>
                         <?php 
                             if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
@@ -120,6 +127,13 @@ session_start();
                             <li class="nav-item txt-white">
                                 <a class="nav-link" href="../html/form_kontaktowy.php">Kontakt</a>
                             </li>
+                            <?php 
+                                if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
+                                    echo '<li class="nav-item txt-white">
+                                            <a class="nav-link" href="../html/profil.php">Profil</a>
+                                        </li>';
+                                }
+                            ?>
                         </ul>
                         <?php
                             if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
@@ -157,7 +171,7 @@ session_start();
                 </div>
 
                 <button class="btn side-navbar-toggler bg-brown" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"  aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon "></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
 
             </div>
