@@ -4055,6 +4055,22 @@ textarea.form-control-lg {
   padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
 }
 
+.navbar-pfp {
+  border-radius: 10px;
+  height: 60px;
+  max-width: 60px;
+  margin: 10px;
+}
+.navbar-ranga{
+  height: 90px;
+  width: 70px;
+}
+
+.nickname:any-link {
+  color: black;
+  text-decoration-line: none;
+}
+
 @media (max-width: 933px) {
   .side-navbar-toggler{
   --bs-navbar-toggler-padding-y: 0.25rem;
