@@ -121,10 +121,22 @@ window.setTimeout(function time() {
     document.getElementById('cont').appendChild(board)
     board.textContent = 'Udało ci się zakończyć grę z wynikiem: ' + score;
 
-    const orm = require('orm'); 
-    const db = orm.connect('mysql://localhost/dbName');  
-    db.query('SELECT id, name FROM user WHERE age = 25', (err, rows) => {   if (err) throw err;   console.log(rows); }).end(); 
+    // const orm = require('orm'); 
+    // const db = orm.connect('mysql://localhost/dbName');  
+    // db.query('SELECT id, name FROM user WHERE age = 25', (err, rows) => {   if (err) throw err;   console.log(rows); }).end(); 
     
+    fetch('../php/add_points.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `score=${encodeURIComponent(score)}`
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data); // Odpowiedź od PHP
+    })
+
     on = false;
 
     againbtn.style.display = "inherit";
