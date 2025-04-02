@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 ?>
 <!DOCTYPE html>
 <html lang="pl-PL">
@@ -117,22 +116,86 @@ session_start();
                 </div>
 
                 <button class="btn side-navbar-toggler bg-brown" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"  aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon "></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
 
             </div>
         </div>
 
         <main>
-            <!--Przykladowy post-->
-             <div class="main-item">
-                <div class="main-content  d-flex flex-row">
+            <?php
+                    $db_server = "localhost";
+                    $db_user = "root";
+                    $db_pass = "";
+                    $db_name = "wdh13";
+                    $conn = "";
+                
+                    $conn = mysqli_connect($db_server,  $db_user, $db_pass, $db_name) or die("Nie udało się połączyć z bazą.");
+
+                if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
+                    if($_SESSION['upr'] == "admin"){
+                        echo '<form class="post-creating" method="post" action="../html/main.php">
+                              <h3>Napisz coś</h3>
+                              <div class="creating-group">
+                                  <textarea name="post" class="form-control w-50"></textarea>
+                                  <button class="btn my-2" name="wyslij">Wyślij</button>
+                              </div>
+                          </form>';
+                    }
+                }
+
+                if(isset($_POST['wyslij']) && $_POST['post'] != ""){
+                    mysqli_query($conn, "INSERT INTO post (id_autora_post, opis, ilosc_polubien) VALUES('$_SESSION[id_profil]', '$_POST[post]', 0)");
+                }
+
+                $sql = "SELECT p.id_posta, p.opis, p.ilosc_polubien, p.data_utworzenia, u.id_profil, u.nazwa_uzytkownika 
+                        FROM post p
+                        JOIN profil u ON p.id_autora_post = u.id_profil
+                        ORDER BY p.data_utworzenia DESC";
+                
+                $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo '<div class="main-item">
+                <div class="main-content d-flex flex-row">
                     <div class="profile-pic">
                         <img src="../img/lilija.png" style="width: 70px;">
                     </div>
-                    <div class="post" style="padding-left: 10px;">
+                    <div class="post">
                         <div class="name-date">
-                            <b class="creator-name">Nazwa uzytkownika</b>
+                            <b class="creator-name">'.$row["nazwa_uzytkownika"].'</b>
+                            &#183;
+                            <i class="post-date">'.$row["data_utworzenia"].'</i>
+                        </div>
+                        <p class="post-content">'.$row["opis"].'</p>
+                    </div>
+                </div>
+                <div class="post-options d-flex align-items-center justify-content-between">
+                    <div class="post-likes">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" fill="#000000"><path d="m480-144-50-45q-100-89-165-152.5t-102.5-113Q125-504 110.5-545T96-629q0-89 61-150t150-61q49 0 95 21t78 59q32-38 78-59t95-21q89 0 150 61t61 150q0 43-14 83t-51.5 89q-37.5 49-103 113.5T528-187l-48 43Zm0-97q93-83 153-141.5t95.5-102Q764-528 778-562t14-67q0-59-40-99t-99-40q-35 0-65.5 14.5T535-713l-35 41h-40l-35-41q-22-26-53.5-40.5T307-768q-59 0-99 40t-40 99q0 33 13 65.5t47.5 75.5q34.5 43 95 102T480-241Zm0-264Z"/></svg>
+                        <b>'.$row["ilosc_polubien"].'</b>
+                    </div>
+                    <img src="../img/ICONS/comment.svg">
+                </div>
+            </div>';
+            }
+        } else {
+            echo "Brak postów.";
+        }
+                
+            ?>
+            
+            
+            <!--Przykladowy post-->
+            <div class="main-item">
+                <div class="main-content d-flex flex-row">
+                    <div class="profile-pic">
+                        <img src="../img/lilija.png" style="width: 70px;">
+                    </div>
+                    <div class="post">
+                        <div class="name-date">
+                            <b class="creator-name"></b>
                             &#183;
                             <i class="post-date">00-00-0000</i>
                         </div>
@@ -144,7 +207,7 @@ session_start();
                             Tresc posta
                             Tresc posta
                             Tresc posta
-                            resc posta
+                            Tresc posta
                             Tresc posta
                             Tresc posta
                             Tresc posta
@@ -154,13 +217,14 @@ session_start();
                         </p>
                     </div>
                 </div>
-                <div class="post-options d-flex align-items-center justify-content-between" style="height:50px;">
-                    <div class="post-likes" style="width: 5%;">
+                <div class="post-options d-flex align-items-center justify-content-between">
+                    <div class="post-likes">
                         <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" fill="#000000"><path d="m480-144-50-45q-100-89-165-152.5t-102.5-113Q125-504 110.5-545T96-629q0-89 61-150t150-61q49 0 95 21t78 59q32-38 78-59t95-21q89 0 150 61t61 150q0 43-14 83t-51.5 89q-37.5 49-103 113.5T528-187l-48 43Zm0-97q93-83 153-141.5t95.5-102Q764-528 778-562t14-67q0-59-40-99t-99-40q-35 0-65.5 14.5T535-713l-35 41h-40l-35-41q-22-26-53.5-40.5T307-768q-59 0-99 40t-40 99q0 33 13 65.5t47.5 75.5q34.5 43 95 102T480-241Zm0-264Z"/></svg>
-                        <b style="font-size: 1rem;">0</b>
+                        <b>0</b>
                     </div>
-                    <img src="../img/ICONS/comment.svg" style="width: 2rem;">
+                    <img src="../img/ICONS/comment.svg">
                 </div>
+            </div>
         </main>
     </div>
 

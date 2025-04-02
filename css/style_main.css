@@ -1,6 +1,15 @@
-.post-profile-img{
-  width: 100px;
+.post-creating{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 40px;
+    width: 80%;
 }
-.post-content{
-  font-size: xx-large;
+
+.creating-group > textarea{
+    background-color: aliceblue;
+}
+
+.creating-group > button{
+    flex-grow: inherit;
 }

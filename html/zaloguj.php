@@ -1,7 +1,13 @@
 <?php
 session_start();
 
-include("../php/database.php");
+$db_server = "localhost";
+$db_user = "root";
+$db_pass = "";
+$db_name = "wdh13";
+$conn = "";
+
+$conn = mysqli_connect($db_server,  $db_user, $db_pass, $db_name) or die("Nie udało się połączyć z bazą.");
 
 if(isset($_POST["zaloguj"])){
 
@@ -30,11 +36,12 @@ if(isset($_POST["zaloguj"])){
 
         if($check){
             $_SESSION["zalogowany"] = true;
-            $row = $conn->query("SELECT id_profil, nazwa_uzytkownika, zdjecie_profilowe, punkty FROM profil WHERE email = '$email'")->fetch_assoc();
+            $row = $conn->query("SELECT id_profil, nazwa_uzytkownika, zdjecie_profilowe, punkty, uprawnienia FROM profil WHERE email = '$email'")->fetch_assoc();
             $_SESSION["id_profil"] = $row["id_profil"];
             $_SESSION["nazwa"] = $row["nazwa_uzytkownika"];
             $_SESSION["pfp"] = $row["zdjecie_profilowe"];
             $_SESSION["punkty"] = $row["punkty"];
+            $_SESSION["upr"] = $row["uprawnienia"];
 
             $ranga = $conn->query("SELECT ranga.nazwa_rangi, ranga.zdjecie_rangi FROM ranga 
                 JOIN zdobyte_rangi ON ranga.id_rangi = zdobyte_rangi.id_rangi
@@ -82,7 +89,7 @@ mysqli_close($conn);
             <input type="password" id="haslo" name="haslo" placeholder="Hasło" class="form-control w-100" required>
             <br>
             <i class="text-danger" style="display: none;">*Nie udało się zalogować</i>
-            <button class="btn form-control w-75" name="zaloguj">Zaloguj się</button>
+            <button class="btn form-control w-75 my-4" name="zaloguj">Zaloguj się</button>
         </form>
 </div>
 </body>
