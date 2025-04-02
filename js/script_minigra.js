@@ -120,6 +120,11 @@ window.setTimeout(function time() {
     board.id = 'board';
     document.getElementById('cont').appendChild(board)
     board.textContent = 'Udało ci się zakończyć grę z wynikiem: ' + score;
+
+    const orm = require('orm'); 
+    const db = orm.connect('mysql://localhost/dbName');  
+    db.query('SELECT id, name FROM user WHERE age = 25', (err, rows) => {   if (err) throw err;   console.log(rows); }).end(); 
+    
     on = false;
 
     againbtn.style.display = "inherit";

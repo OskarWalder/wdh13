@@ -30,16 +30,18 @@ if(isset($_POST["zaloguj"])){
 
         if($check){
             $_SESSION["zalogowany"] = true;
-            $row = $conn->query("SELECT id_profil, nazwa_uzytkownika, zdjecie_profilowe, punkty FROM profil WHERE email = '$email'")->fetch_assoc();
+            $row = $conn->query("SELECT id_profil, nazwa_uzytkownika, zdjecie_profilowe, punkty, punkty_alltime, uprawnienia FROM profil WHERE email = '$email'")->fetch_assoc();
             $_SESSION["id_profil"] = $row["id_profil"];
             $_SESSION["nazwa"] = $row["nazwa_uzytkownika"];
             $_SESSION["pfp"] = $row["zdjecie_profilowe"];
             $_SESSION["punkty"] = $row["punkty"];
+            $_SESSION["punkty_alltime"] = $row["punkty_alltime"];
+            $_SESSION["uprawnienia"] = $row["uprawnienia"];
 
-            $ranga = $conn->query("SELECT ranga.nazwa_rangi, ranga.zdjecie_rangi FROM ranga 
+            $ranga = $conn->query("SELECT ranga.id_rangi, ranga.nazwa_rangi, ranga.zdjecie_rangi FROM ranga 
                 JOIN zdobyte_rangi ON ranga.id_rangi = zdobyte_rangi.id_rangi
                 JOIN profil ON zdobyte_rangi.id_wlasciciela_rangi = profil.id_profil
-                WHERE profil.email = '$email'")->fetch_assoc();
+                WHERE profil.email = '$email' GROUP BY ranga.id_rangi DESC LIMIT 1")->fetch_assoc();
             $_SESSION["ranga"] = $ranga["nazwa_rangi"] ?? "";
             $_SESSION["zdjecie_rangi"] = $ranga["zdjecie_rangi"] ?? "";
             
