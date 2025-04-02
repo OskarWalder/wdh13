@@ -36,14 +36,20 @@ if(isset($_POST["zaloguj"])){
 
         if($check){
             $_SESSION["zalogowany"] = true;
-            $row = $conn->query("SELECT id_profil, nazwa_uzytkownika, zdjecie_profilowe, punkty, punkty_alltime, uprawnienia FROM profil WHERE email = '$email'")->fetch_assoc();
+            $row = $conn->query("SELECT id_profil, nazwa_uzytkownika, email, punkty, punkty_alltime, uprawnienia FROM profil WHERE email = '$email'")->fetch_assoc();
             $_SESSION["id_profil"] = $row["id_profil"];
             $_SESSION["nazwa"] = $row["nazwa_uzytkownika"];
-            $_SESSION["pfp"] = $row["zdjecie_profilowe"];
+            $_SESSION["email"] = $row["email"];
             $_SESSION["punkty"] = $row["punkty"];
             $_SESSION["upr"] = $row["uprawnienia"];
             $_SESSION["punkty_alltime"] = $row["punkty_alltime"];
             $_SESSION["uprawnienia"] = $row["uprawnienia"];
+
+            $sql = "SELECT zdjecie_profilowe FROM profil WHERE email ='$email'";
+            $sth = $conn->query($sql);
+            $result=mysqli_fetch_array($sth);
+            
+            $_SESSION["pfp"] = $result["zdjecie_profilowe"];
 
             $ranga = $conn->query("SELECT ranga.id_rangi, ranga.nazwa_rangi, ranga.zdjecie_rangi FROM ranga 
                 JOIN zdobyte_rangi ON ranga.id_rangi = zdobyte_rangi.id_rangi
