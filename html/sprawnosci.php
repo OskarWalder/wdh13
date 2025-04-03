@@ -202,7 +202,15 @@ ob_start();
                     $img = ($sprawnosci[$i]['zdjecie_sprawnosci']);
                     $nazwa = ($sprawnosci[$i]['nazwa_sprawnosci']);
                     $cena = ($sprawnosci[$i]['cena']);
-                    echo '<div class="col col-12 col-sm-6 col-md-4 mb-3"><div class="card rounded-5" style="width: 18rem; margin: 10px;"> <img class="card-img-top rounded-bottom rounded-5 border border-3 border-dark" src="../img/spr/'.$img.'" alt="Card image cap"> <div class="card-body bg-post rounded-top rounded-5  border border-3 border-dark"><h5 class="card-title">'.$nazwa.'</h5><a href="#" class="btn">Kup za: '.$cena.'</a></div></div></div>';
+                    echo '<div class="col col-12 col-sm-6 col-md-4 mb-3">
+                            <div class="card rounded-5" style="width: 18rem; margin: 10px;"> 
+                                <img class="card-img-top rounded-top-5 border border-3 border-dark" src="../img/spr/'.$img.'" alt="Card image cap"> 
+                                <div class="card-body bg-post rounded-top-0 rounded-5 border border-3 border-dark">
+                                    <h5 class="card-title">'.$nazwa.'</h5>
+                                    <a href="#" class="btn">Kup za: '.$cena.'</a>
+                                </div>
+                            </div>
+                          </div>';
 
                     if (($i + 1) % 3 == 0 && ($i + 1) != count($sprawnosci)) {
                         echo '</div><div class="row">';
