@@ -14,6 +14,16 @@
         $_SESSION["punkty"] = $dodany;
         $_SESSION["punkty_alltime"] = $dodany_alltime;
 
+        $sql2 = "SELECT id_rangi, prog_punktowy FROM ranga";
+        $sth = $conn->query($sql2);
+        $result=mysqli_fetch_array($sth);
+        for ($i = (count($result) - 1); $i >= 0; $i--){
+            if ($_SESSION["punkty_alltime"] >= $result[$i]["punkty_alltime"]){
+
+
+            }
+        }
+
     }
     header("Refresh: 0");
 ?>
