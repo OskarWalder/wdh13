@@ -13,3 +13,12 @@
 .creating-group > button{
     flex-grow: inherit;
 }
+
+.postPhoto{
+    max-width: 100%;
+    max-height: 400px;
+}
+
+.profile-pic{
+    width: 10%;
+}

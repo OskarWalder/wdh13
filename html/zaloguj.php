@@ -98,7 +98,9 @@ mysqli_close($conn);
             <br>
             <i class="text-danger" style="display: none;">*Nie udało się zalogować</i>
             <button class="btn form-control w-75 my-4" name="zaloguj">Zaloguj się</button>
+            <br>
+            <a href="../html/main.php">Powrót na stronę główną</a>
         </form>
-</div>
+    </div>
 </body>
 </html>

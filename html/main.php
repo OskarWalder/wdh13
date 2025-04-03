@@ -186,20 +186,22 @@ session_start();
                     $conn = mysqli_connect($db_server,  $db_user, $db_pass, $db_name) or die("Nie udało się połączyć z bazą.");
 
                 if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
-                    if($_SESSION['upr'] == "admin"){
-                        echo '<form class="post-creating" method="post" action="../html/main.php">
+                    if($_SESSION['uprawnienia'] == "admin"){
+                        echo '<form class="post-creating" method="post" action="../php/add_post.php" enctype="multipart/form-data">
                               <h3>Napisz coś</h3>
                               <div class="creating-group">
                                   <textarea name="post" class="form-control w-50"></textarea>
-                                  <button class="btn my-2" name="wyslij">Wyślij</button>
+                                  <br>
+                                  <input type="file" name="postImg" accept="image/*" class="form-control" requiered>
+                                  <button class="btn my-2" name="wyslij">Wstaw posta</button>
                               </div>
                           </form>';
                     }
                 }
 
-                if(isset($_POST['wyslij']) && $_POST['post'] != ""){
-                    mysqli_query($conn, "INSERT INTO post (id_autora_post, opis, ilosc_polubien) VALUES('$_SESSION[id_profil]', '$_POST[post]', 0)");
-                }
+                // if(isset($_POST['wyslij']) && $_POST['post'] != ""){
+                //     mysqli_query($conn, "INSERT INTO post (id_autora_post, opis, ilosc_polubien) VALUES('$_SESSION[id_profil]', '$_POST[post]', 0)");
+                // }
 
                 $sql = "SELECT p.id_posta, p.opis, p.ilosc_polubien, p.data_utworzenia, u.id_profil, u.nazwa_uzytkownika 
                         FROM post p
@@ -207,21 +209,39 @@ session_start();
                         ORDER BY p.data_utworzenia DESC";
                 
                 $result = $conn->query($sql);
+
+                
         
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
+
+                $id_autora = $row['id_profil'];
+                $sql2 = "SELECT zdjecie_profilowe FROM profil WHERE id_profil = '$id_autora'";
+                $sth1 = $conn->query($sql2);
+                $result2=mysqli_fetch_array($sth1);
+                $pfp = $result2["zdjecie_profilowe"];
+
+                $id_posta = $row['id_posta'];
+                $sql3 = "SELECT zdjecie_post FROM post WHERE id_posta = '$id_posta'";
+                $sth2 = $conn->query($sql3);
+                $result3=mysqli_fetch_array($sth2);
+                $photo = $result3["zdjecie_post"];
+
                 echo '<div class="main-item">
                 <div class="main-content d-flex flex-row">
                     <div class="profile-pic">
-                        <img src="../img/lilija.png" style="width: 70px;">
+                        <img src="data:image;base64,'.base64_encode( $pfp ).'" style="width: 80%; border-radius: 10px">
                     </div>
-                    <div class="post">
+                    <div class="post w-100">
                         <div class="name-date">
                             <b class="creator-name">'.$row["nazwa_uzytkownika"].'</b>
                             &#183;
                             <i class="post-date">'.$row["data_utworzenia"].'</i>
                         </div>
                         <p class="post-content">'.$row["opis"].'</p>
+                        <div class="d-flex justify-content-center">
+                            <img src="data:image;base64,'.base64_encode( $photo ).'" class="postPhoto">
+                        </div>
                     </div>
                 </div>
                 <div class="post-options d-flex align-items-center justify-content-between">
@@ -240,7 +260,7 @@ session_start();
             ?>
             
             
-            <!--Przykladowy post-->
+            <!-- Przykladowy post
             <div class="main-item">
                 <div class="main-content d-flex flex-row">
                     <div class="profile-pic">
@@ -277,7 +297,7 @@ session_start();
                     </div>
                     <img src="../img/ICONS/comment.svg">
                 </div>
-            </div>
+            </div> -->
         </main>
     </div>
 

@@ -183,7 +183,7 @@ session_start();
                     echo '<div class="main-item d-flex flex-row flex-wrap">
                         <div class="col">
                             <div class="row">
-                                <div class="row p-3">Nazwa uzytkownika: '.$_SESSION["nazwa"].'</div>
+                                <div class="row p-3">Nazwa użytkownika: '.$_SESSION["nazwa"].'</div>
                                 <div class="row p-3">Email: '.$_SESSION["email"].'</div>
                                 <div class="row p-3">Dostępne punkty: '.$_SESSION["punkty"].'</div>
                                 <div class="row p-3">Zdobyte punkty: '.$_SESSION["punkty_alltime"].'</div>';
