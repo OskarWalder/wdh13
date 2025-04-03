@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 ?>
 <!DOCTYPE html>
 <html lang="pl-PL">
@@ -203,7 +204,7 @@ session_start();
                 //     mysqli_query($conn, "INSERT INTO post (id_autora_post, opis, ilosc_polubien) VALUES('$_SESSION[id_profil]', '$_POST[post]', 0)");
                 // }
 
-                $sql = "SELECT p.id_posta, p.opis, p.ilosc_polubien, p.data_utworzenia, u.id_profil, u.nazwa_uzytkownika 
+                $sql = "SELECT p.id_posta, p.opis, (SELECT COUNT(o.id_polubienia) FROM polubienia o WHERE o.id_posta = p.id_posta) as ilosc_polubien, p.data_utworzenia, u.id_profil, u.nazwa_uzytkownika 
                         FROM post p
                         JOIN profil u ON p.id_autora_post = u.id_profil
                         ORDER BY p.data_utworzenia DESC";
@@ -227,6 +228,15 @@ session_start();
                 $result3=mysqli_fetch_array($sth2);
                 $photo = $result3["zdjecie_post"];
 
+
+                // $sql4 = "SELECT id_polubienia, id_uzytkownika, id_posta FROM polubienia WHERE id_posta = '$id_posta'";
+                // $result4 = $conn->query($sql4);
+                // if ($result4->num_rows > 0) {
+                //     while($row2 = $result4->fetch_assoc()) {
+
+                //     }
+                // }
+
                 echo '<div class="main-item">
                 <div class="main-content d-flex flex-row">
                     <div class="profile-pic">
@@ -245,9 +255,42 @@ session_start();
                     </div>
                 </div>
                 <div class="post-options d-flex align-items-center justify-content-between">
-                    <div class="post-likes">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" fill="#000000"><path d="m480-144-50-45q-100-89-165-152.5t-102.5-113Q125-504 110.5-545T96-629q0-89 61-150t150-61q49 0 95 21t78 59q32-38 78-59t95-21q89 0 150 61t61 150q0 43-14 83t-51.5 89q-37.5 49-103 113.5T528-187l-48 43Zm0-97q93-83 153-141.5t95.5-102Q764-528 778-562t14-67q0-59-40-99t-99-40q-35 0-65.5 14.5T535-713l-35 41h-40l-35-41q-22-26-53.5-40.5T307-768q-59 0-99 40t-40 99q0 33 13 65.5t47.5 75.5q34.5 43 95 102T480-241Zm0-264Z"/></svg>
-                        <b>'.$row["ilosc_polubien"].'</b>
+                    <div class="post-likes">';
+                        if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
+                            $id_uzytkownika = $_SESSION["id_profil"];
+                            $sql5 = "SELECT COUNT(id_polubienia) as czy_polubione FROM polubienia WHERE id_uzytkownika = '$id_uzytkownika' and id_posta = '$id_posta'";
+                            $result5 = $conn->query($sql5);
+                            $row5 = $result5->fetch_assoc();
+                            $czy = $row5["czy_polubione"];
+                        }
+                        
+                        if(isset($_POST["pol_on$id_posta"])){
+                            if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
+                                if ($czy == 0){
+                                    $sql7 = "INSERT INTO polubienia(id_uzytkownika, id_posta) VALUES ('$id_uzytkownika', '$id_posta')";
+                                    $conn->query($sql7);
+                                    header("Refresh: 0");
+                                    // header("Location: ../html/main.php");
+                                } 
+                            }
+                            else{
+                                echo "<script>alert('Musisz być zalogowany, aby polubić posta.<br>Jeżli go nie posiadasz, możesz je założyć ZA DARMO!')</script>";
+                            }
+                        }
+                        if(isset($_POST["pol_off$id_posta"])){
+                            $sql7 = "DELETE FROM polubienia WHERE id_uzytkownika = '$id_uzytkownika' AND id_posta = '$id_posta'";
+                            $conn->query($sql7);
+                            header("Refresh: 0");
+                            // header("Location: ../html/main.php");
+                        }
+
+                        if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"] && $czy != 0){
+                            echo '<form action="../html/main.php" method="post"><button class="pol_on" name="pol_off'.$id_posta.'"><svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" fill="#ff0000"><path d="m480-144-50-45q-100-89-165-152.5t-102.5-113Q125-504 110.5-545T96-629q0-89 61-150t150-61q49 0 95 21t78 59q32-38 78-59t95-21q89 0 150 61t61 150q0 43-14 83t-51.5 89q-37.5 49-103 113.5T528-187l-48 43Zm0-97q93-83 153-141.5t95.5-102Q764-528 778-562t14-67q0-59-40-99t-99-40q-35 0-65.5 14.5T535-713l-35 41h-40l-35-41q-22-26-53.5-40.5T307-768q-59 0-99 40t-40 99q0 33 13 65.5t47.5 75.5q34.5 43 95 102T480-241Zm0-264Z"/></svg></button>';
+                        }
+                        else {
+                            echo '<form action="../html/main.php" method="post"><button class="pol_off" name="pol_on'.$id_posta.'"><svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" fill="#000000"><path d="m480-144-50-45q-100-89-165-152.5t-102.5-113Q125-504 110.5-545T96-629q0-89 61-150t150-61q49 0 95 21t78 59q32-38 78-59t95-21q89 0 150 61t61 150q0 43-14 83t-51.5 89q-37.5 49-103 113.5T528-187l-48 43Zm0-97q93-83 153-141.5t95.5-102Q764-528 778-562t14-67q0-59-40-99t-99-40q-35 0-65.5 14.5T535-713l-35 41h-40l-35-41q-22-26-53.5-40.5T307-768q-59 0-99 40t-40 99q0 33 13 65.5t47.5 75.5q34.5 43 95 102T480-241Zm0-264Z"/></svg></button>';
+                        }
+                        echo '<b>'.$row["ilosc_polubien"].'</b></form>
                     </div>
                     <img src="../img/ICONS/comment.svg">
                 </div>
@@ -308,3 +351,6 @@ session_start();
     <script src="../js/script_main.js"></script>
 </body>
 </html>
+<?php
+ob_end_flush();
+?>

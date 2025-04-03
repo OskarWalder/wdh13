@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 
 $db_server = "localhost";
 $db_user = "root";
@@ -63,7 +64,8 @@ if(isset($_POST["zaloguj"])){
             $stmt2->bind_param("s", $email);
             $stmt2->execute();
 
-            echo "<script>alert('Jesteś zalogowany!'); window.location.href = '../html/main.php';</script>";
+            //echo "<script>window.location.href = '../html/main.php'; alert('Jesteś zalogowany!');</script>";
+            header("Location: ../html/main.php");
             exit();   
         } 
         else { //&& !(password_verify($haslo, $result['haslo']))){  
@@ -104,3 +106,6 @@ mysqli_close($conn);
     </div>
 </body>
 </html>
+<?php
+ob_end_flush();
+?>

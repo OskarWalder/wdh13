@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -190,3 +191,6 @@ session_start();
     <script src="#"></script> <!-- Tutaj podłączamy plik JS, jeżeli potrzebny -->
 </body>
 </html>
+<?php
+ob_end_flush();
+?>

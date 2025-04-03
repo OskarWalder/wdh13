@@ -15,6 +15,7 @@
         $_SESSION["punkty_alltime"] = $dodany_alltime;
 
     }
+    header("Refresh: 0");
 ?>
 
 <!-- <?php

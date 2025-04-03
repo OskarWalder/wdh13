@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 ?>
 <!DOCTYPE html>
 <html lang="pl-PL">
@@ -67,3 +68,6 @@ session_start();
     <script src="../js/script_zarejestruj.js"></script>
 </body>
 </html>
+<?php
+ob_end_flush();
+?>
