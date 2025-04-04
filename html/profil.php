@@ -201,37 +201,74 @@ ob_start();
 
 
                 if (isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
-                    echo '<div class="main-item d-flex flex-row flex-wrap">
-                        <div class="col">
-                            <div class="row">
-                                <div class="row p-3">Nazwa użytkownika: '.$_SESSION["nazwa"].'</div>
-                                <div class="row p-3">Email: '.$_SESSION["email"].'</div>
-                                <div class="row p-3">Dostępne punkty: '.$_SESSION["punkty"].'</div>
-                                <div class="row p-3">Zdobyte punkty: '.$_SESSION["punkty_alltime"].'</div>';
-                                if ($_SESSION["uprawnienia"] == "user"){
-                                    echo '<div class="row p-3">Rodzaj konta: Użytkownik</div>';
-                                }
-                                else {
-                                    echo '<div class="row p-3">Rodzaj konta: '.$_SESSION["uprawnienia"].'</div>';
-                                }
-                                if ($_SESSION["zdjecie_rangi"] != ""){
-                                    echo '<div class="row p-3">
-                                                Ranga: '.$_SESSION["ranga"].'<img src="../img/rng/'.$_SESSION["zdjecie_rangi"].'" alt="ranga_photo" class="navbar-ranga"></div>';
-                                }
-                                else{
-                                    echo '<div class="row p-3">Ranga: nie zdobyto</div>';
-                                }
-                            echo '</div>
+                    echo '<div class="main-item d-flex flex-column">
+                        <div class="d-flex flex-row flex-wrap">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="row p-3">Nazwa użytkownika: '.$_SESSION["nazwa"].'</div>
+                                    <div class="row p-3">Email: '.$_SESSION["email"].'</div>
+                                    <div class="row p-3">Dostępne punkty: '.$_SESSION["punkty"].'</div>
+                                    <div class="row p-3">Zdobyte punkty: '.$_SESSION["punkty_alltime"].'</div>';
+                                    if ($_SESSION["uprawnienia"] == "user"){
+                                        echo '<div class="row p-3">Rodzaj konta: Użytkownik</div>';
+                                    }
+                                    else {
+                                        echo '<div class="row p-3">Rodzaj konta: '.$_SESSION["uprawnienia"].'</div>';
+                                    }
+                                    if ($_SESSION["zdjecie_rangi"] != ""){
+                                        echo '<div class="row p-3">
+                                                    Ranga: '.$_SESSION["ranga"].'<img src="../img/rng/'.$_SESSION["zdjecie_rangi"].'" alt="ranga_photo" class="navbar-ranga"></div>';
+                                    }
+                                    else{
+                                        echo '<div class="row p-3">Ranga: nie zdobyto</div>';
+                                    }
+                                echo '</div>
+                            </div>
+                            <div class="col d-flex flex-column">';
+                                    if ($_SESSION["pfp"] == ""){
+                                        echo '<div class="d-flex justify-content-center"><img src="../img/pfp/default.png" alt="pfp" class="img-pfp mb-3"></div>';
+                                    }
+                                    else{
+                                        echo '<div class="d-flex justify-content-center"><img src="data:image;base64,'.base64_encode( $_SESSION["pfp"] ).'" alt="pfp" class="img-pfp mb-3"></div>';
+                                    }
+                                echo '<div class="d-flex justify-content-center"><form action="../php/add_pfp.php" method="post" enctype="multipart/form-data"><input type="file" name="pfpImg" accept="image/*" class="form-control" requiered><input type="submit" value="Zmień zdjęcie profilowe" name="zmien" class="btn txt-small m-3"></form></div>
+                            </div>
                         </div>
-                        <div class="col d-flex flex-column">';
-                                if ($_SESSION["pfp"] == ""){
-                                    echo '<div class="d-flex justify-content-center"><img src="../img/pfp/default.png" alt="pfp" class="img-pfp mb-3"></div>';
-                                }
-                                else{
-                                    echo '<div class="d-flex justify-content-center"><img src="data:image;base64,'.base64_encode( $_SESSION["pfp"] ).'" alt="pfp" class="img-pfp mb-3"></div>';
-                                }
-                            echo '<div class="d-flex justify-content-center"><form action="../php/add_pfp.php" method="post" enctype="multipart/form-data"><input type="file" name="pfpImg" accept="image/*" class="form-control" requiered><input type="submit" value="Zmień zdjęcie profilowe" name="zmien" class="btn txt-small m-3"></form></div>
-                    </div>';
+                        <p>Zdobyte sprawności:</p>';
+
+                        $id = $_SESSION["id_profil"];
+                        $sql = "SELECT id_zdobytej_sprawnosci, data_zdobycia FROM zdobyte_sprawnosci WHERE id_wlasciciela_sprawnosci = '$id'";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            while($row = $result->fetch_assoc()) {
+
+                                $id_sprawnosci = $row["id_zdobytej_sprawnosci"];
+
+                                $sql2 = "SELECT nazwa_sprawnosci, cena, zdjecie_sprawnosci FROM sprawnosci WHERE id_sprawnosci = '$id_sprawnosci'";
+
+                                $row2 = $conn->query($sql2)->fetch_assoc();
+
+                                $img = $row2['zdjecie_sprawnosci'];
+                                $nazwa = $row2['nazwa_sprawnosci'];
+                                $cena = $row2['cena'];
+                                $data = $row['data_zdobycia'];
+                                echo '
+                                        <div class="col col-12 col-sm-6 col-md-4 mb-3">
+                                            <div class="card rounded-5" style="width: 90%; margin: 10px;"> 
+                                                <img class="card-img-top rounded-top-5 border border-3 border-dark" src="../img/spr/'.$img.'" alt="Card image cap"> 
+                                                <div class="card-body bg-post rounded-top-0 rounded-5 border border-3 border-dark">
+                                                    <h5 class="card-title">'.$nazwa.'</h5>
+                                                    <button class="btn">Wartość: '.$cena.'</button>
+                                                    <p>'.$data.'</p>
+                                                </div>
+                                            </div>
+                                        </div>';
+                            }
+                        } else {
+                            echo "<p>Nie zdobyłeś jeszcze żadnej sprawności.";
+                        };
+                    echo '</div>';
                 }
                 else{
                     echo '<div class="main-item text-center">
