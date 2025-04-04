@@ -181,7 +181,13 @@ ob_start();
         <main>
             <?php
 
-                include("../php/database.php");
+            $db_server = "localhost";
+            $db_user = "root";
+            $db_pass = "";
+            $db_name = "wdh13";
+            $conn = "";
+
+            $conn = mysqli_connect($db_server,  $db_user, $db_pass, $db_name) or die("Nie udało się połączyć z bazą.");
 
                 $sprawnosci = array();
 
@@ -197,26 +203,71 @@ ob_start();
                 };
 
                 echo '<div class="row">';
-
-                for($i = 0; $i < count($sprawnosci); $i++){
+                echo '<form method="post" action="../html/sprawnosci.php" class="w-100 d-flex">';
+                for($i = 0, $p = 1; $i < count($sprawnosci); $i++, $p++){
                     $img = ($sprawnosci[$i]['zdjecie_sprawnosci']);
                     $nazwa = ($sprawnosci[$i]['nazwa_sprawnosci']);
                     $cena = ($sprawnosci[$i]['cena']);
-                    echo '<div class="col col-12 col-sm-6 col-md-4 mb-3">
-                            <div class="card rounded-5" style="width: 18rem; margin: 10px;"> 
-                                <img class="card-img-top rounded-top-5 border border-3 border-dark" src="../img/spr/'.$img.'" alt="Card image cap"> 
-                                <div class="card-body bg-post rounded-top-0 rounded-5 border border-3 border-dark">
-                                    <h5 class="card-title">'.$nazwa.'</h5>
-                                    <a href="#" class="btn">Kup za: '.$cena.'</a>
+                    echo '
+                              <div class="col col-12 col-sm-6 col-md-4 mb-3">
+                                <div class="card rounded-5" style="width: 18rem; margin: 10px;"> 
+                                    <img class="card-img-top rounded-top-5 border border-3 border-dark" src="../img/spr/'.$img.'" alt="Card image cap"> 
+                                    <div class="card-body bg-post rounded-top-0 rounded-5 border border-3 border-dark">
+                                        <h5 class="card-title">'.$nazwa.'</h5>
+                                        <button href="#" class="btn" name="btn-sprawnosci" value="btn-'.$p.'">Kup za: '.$cena.'</button>
+                                    </div>
                                 </div>
-                            </div>
-                          </div>';
+                               </div>';
 
                     if (($i + 1) % 3 == 0 && ($i + 1) != count($sprawnosci)) {
                         echo '</div><div class="row">';
                     }
                 };
+                echo "</form>";
 
+                // Pobieranie wszystkich sprawności
+$sprawnosc = $conn->query("SELECT id_sprawnosci, nazwa_sprawnosci, cena, zdjecie_sprawnosci FROM sprawnosci")->fetch_all(MYSQLI_ASSOC);
+
+// Pobieranie zdobytych sprawności przez użytkownika
+$zdobyte_sprawnosci = $conn->query("SELECT id_sprawnosci FROM zdobyte_sprawnosci WHERE id_wlasciciela_sprawnosci = {$_SESSION['id_profil']}")->fetch_all(MYSQLI_ASSOC);
+
+// Pobieranie danych użytkownika (punkty, id_profil)
+$profil = $conn->query("SELECT id_profil, punkty FROM profil WHERE id_profil = {$_SESSION['id_profil']}")->fetch_assoc();
+
+for ($i = 0; $i < count($sprawnosc); $i++) {
+    $id_sprawnosci = $sprawnosc[$i]["id_sprawnosci"];
+    $cena = $sprawnosc[$i]["cena"];
+
+    // Sprawdzanie, czy kliknięty przycisk jest zgodny z danym ID sprawności
+    if (isset($_REQUEST["btn-sprawnosci"]) && $_REQUEST["btn-sprawnosci"] == "btn-" . $id_sprawnosci) {
+
+        // Sprawdzanie, czy użytkownik ma wystarczająco punktów
+        $posiada_sprawnosc = false;
+
+        // Sprawdzamy, czy użytkownik już posiada tę sprawność
+        foreach ($zdobyte_sprawnosci as $zdobyta) {
+            if ($zdobyta["id_sprawnosci"] == $id_sprawnosci) {
+                $posiada_sprawnosc = true;
+                break;
+            }
+        }
+
+        // Jeżeli użytkownik nie posiada jeszcze tej sprawności, a ma wystarczająco punktów
+        if ($cena <= $_SESSION["punkty"] && !$posiada_sprawnosc) {
+            // Zmniejszamy punkty użytkownika
+            $_SESSION["punkty"] -= $cena;
+
+            // Wstawiamy zakup do bazy danych
+            $stmt = $conn->prepare("INSERT INTO zdobyte_sprawnosci (id_zdobytej_sprawnosci, id_wlasciciela_sprawnosci, id_sprawnosci) VALUES (?, ?, ?)");
+            $stmt->bind_param("iii", $id_sprawnosci, $profil["id_profil"], $id_sprawnosci);
+            $stmt->execute();
+
+            echo "<script> alert('Zakupiono sprawność!'); </script>";
+        } else {
+            echo "<script> alert('Nie możesz zakupić tej sprawności, ponieważ już ją posiadasz lub nie masz wystarczająco punktów.'); </script>";
+        }
+    }
+}
             ?>
             <!-- Tu znajduje się zawartość podstrony -->
         </main>

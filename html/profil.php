@@ -1,5 +1,10 @@
 <?php
 session_start();
+    $_SESSION["sprawnosc_1"] = "ognik.jpg";
+    $_SESSION["sprawnosc_2"] = "Astronom.jpg";
+    $_SESSION["sprawnosc_3"] = "Historyk.jpg";
+    $_SESSION["sprawnosc_4"] = "Grafik.jpg";
+
 ob_start();
 ?>
 <!DOCTYPE html>
@@ -26,11 +31,13 @@ ob_start();
                     <a class="navbar-brand txt2_visability" href="../html/main.php">13 WDH</a>
                 </div>
                     <?php
-                        if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
+                    if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
                             echo '<div class="d-flex flex-row" id="profile"> 
                                     <div class="col profile1 px-4">';
                                         if ($_SESSION["zdjecie_rangi"] != ""){
-                                            echo '<div class="row d-flex justify-content-center"><img src="../img/rng/'.$_SESSION["zdjecie_rangi"].'" alt="ranga_photo" class="navbar-ranga"></div>
+                                            echo '<div class="row d-flex justify-content-center">
+                                                    <img src="../img/rng/'.$_SESSION["zdjecie_rangi"].'" alt="ranga_photo" class="navbar-ranga">
+                                                  </div>
                                             <div class="row d-flex justify-content-center">Punkty: '.$_SESSION["punkty"].'</div>';
                                         }
                                         else{
@@ -177,9 +184,22 @@ ob_start();
 
             </div>
         </div>
-
         <main>
             <?php
+
+            $db_server = "localhost";
+            $db_user = "root";
+            $db_pass = "";
+            $db_name = "wdh13";
+            $conn = "";
+
+            $conn = mysqli_connect($db_server,  $db_user, $db_pass, $db_name) or die("Nie udało się połączyć z bazą.");
+
+            
+
+              
+
+
                 if (isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
                     echo '<div class="main-item d-flex flex-row flex-wrap">
                         <div class="col">
@@ -195,7 +215,8 @@ ob_start();
                                     echo '<div class="row p-3">Rodzaj konta: '.$_SESSION["uprawnienia"].'</div>';
                                 }
                                 if ($_SESSION["zdjecie_rangi"] != ""){
-                                    echo '<div class="row p-3">Ranga: '.$_SESSION["ranga"].'<img src="../img/rng/'.$_SESSION["zdjecie_rangi"].'" alt="ranga_photo" class="navbar-ranga"></div>';
+                                    echo '<div class="row p-3">
+                                                Ranga: '.$_SESSION["ranga"].'<img src="../img/rng/'.$_SESSION["zdjecie_rangi"].'" alt="ranga_photo" class="navbar-ranga"></div>';
                                 }
                                 else{
                                     echo '<div class="row p-3">Ranga: nie zdobyto</div>';
