@@ -213,134 +213,171 @@ ob_start();
 
                 
         
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
 
-                $id_autora = $row['id_profil'];
-                $sql2 = "SELECT zdjecie_profilowe FROM profil WHERE id_profil = '$id_autora'";
-                $sth1 = $conn->query($sql2);
-                $result2=mysqli_fetch_array($sth1);
-                $pfp = $result2["zdjecie_profilowe"];
+                        $id_autora = $row['id_profil'];
+                        $sql2 = "SELECT zdjecie_profilowe FROM profil WHERE id_profil = '$id_autora'";
+                        $sth1 = $conn->query($sql2);
+                        $result2=mysqli_fetch_array($sth1);
+                        $pfp = $result2["zdjecie_profilowe"];
 
-                $id_posta = $row['id_posta'];
-                $sql3 = "SELECT zdjecie_post FROM post WHERE id_posta = '$id_posta'";
-                $sth2 = $conn->query($sql3);
-                $result3=mysqli_fetch_array($sth2);
-                $photo = $result3["zdjecie_post"];
+                        $id_posta = $row['id_posta'];
+                        $sql3 = "SELECT zdjecie_post FROM post WHERE id_posta = '$id_posta'";
+                        $sth2 = $conn->query($sql3);
+                        $result3=mysqli_fetch_array($sth2);
+                        $photo = $result3["zdjecie_post"];
 
 
-                // $sql4 = "SELECT id_polubienia, id_uzytkownika, id_posta FROM polubienia WHERE id_posta = '$id_posta'";
-                // $result4 = $conn->query($sql4);
-                // if ($result4->num_rows > 0) {
-                //     while($row2 = $result4->fetch_assoc()) {
+                        // $sql4 = "SELECT id_polubienia, id_uzytkownika, id_posta FROM polubienia WHERE id_posta = '$id_posta'";
+                        // $result4 = $conn->query($sql4);
+                        // if ($result4->num_rows > 0) {
+                        //     while($row2 = $result4->fetch_assoc()) {
 
-                //     }
-                // }
+                        //     }
+                        // }
 
-                echo '<div class="main-item">
-                <div class="main-content d-flex flex-row">
-                    <div class="profile-pic">
-                        <img src="data:image;base64,'.base64_encode( $pfp ).'" style="width: 80%; border-radius: 10px">
-                    </div>
-                    <div class="post w-100">
-                        <div class="name-date">
-                            <b class="creator-name">'.$row["nazwa_uzytkownika"].'</b>
-                            &#183;
-                            <i class="post-date">'.$row["data_utworzenia"].'</i>
+                    echo '<div class="main-item">
+                        <div class="main-content d-flex flex-row">
+                            <div class="profile-pic">
+                                <img src="data:image;base64,'.base64_encode( $pfp ).'" style="width: 80%; border-radius: 10px">
+                            </div>
+                            <div class="post w-100">
+                                <div class="name-date">
+                                    <b class="creator-name">'.$row["nazwa_uzytkownika"].'</b>
+                                    &#183;
+                                    <i class="post-date">'.$row["data_utworzenia"].'</i>
+                                </div>
+                                <p class="post-content">'.$row["opis"].'</p>
+                                <div class="d-flex justify-content-center">
+                                    <img src="data:image;base64,'.base64_encode( $photo ).'" class="postPhoto">
+                                </div>
+                            </div>
                         </div>
-                        <p class="post-content">'.$row["opis"].'</p>
-                        <div class="d-flex justify-content-center">
-                            <img src="data:image;base64,'.base64_encode( $photo ).'" class="postPhoto">
-                        </div>
-                    </div>
-                </div>
-                <div class="post-options d-flex align-items-center justify-content-between">
-                    <div class="post-likes">';
-                        if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
-                            $id_uzytkownika = $_SESSION["id_profil"];
-                            $sql5 = "SELECT COUNT(id_polubienia) as czy_polubione FROM polubienia WHERE id_uzytkownika = '$id_uzytkownika' and id_posta = '$id_posta'";
-                            $result5 = $conn->query($sql5);
-                            $row5 = $result5->fetch_assoc();
-                            $czy = $row5["czy_polubione"];
-                        }
-                        
-                        if(isset($_POST["pol_on$id_posta"])){
-                            if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
-                                if ($czy == 0){
-                                    $sql7 = "INSERT INTO polubienia(id_uzytkownika, id_posta) VALUES ('$id_uzytkownika', '$id_posta')";
+                        <div class="post-options d-flex align-items-center justify-content-between mt-3">
+                            <div class="post-likes">';
+                                if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
+                                    $id_uzytkownika = $_SESSION["id_profil"];
+                                    $sql5 = "SELECT COUNT(id_polubienia) as czy_polubione FROM polubienia WHERE id_uzytkownika = '$id_uzytkownika' and id_posta = '$id_posta'";
+                                    $result5 = $conn->query($sql5);
+                                    $row5 = $result5->fetch_assoc();
+                                    $czy = $row5["czy_polubione"];
+                                }
+                                
+                                if(isset($_POST["pol_on$id_posta"])){
+                                    if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
+                                        if ($czy == 0){
+                                            $sql7 = "INSERT INTO polubienia(id_uzytkownika, id_posta) VALUES ('$id_uzytkownika', '$id_posta')";
+                                            $conn->query($sql7);
+                                            header("Refresh: 0");
+                                            // header("Location: ../html/main.php");
+                                        } 
+                                    }
+                                    else{
+                                        echo "<script>alert('Musisz być zalogowany, aby polubić posta.<br>Jeżli go nie posiadasz, możesz je założyć ZA DARMO!')</script>";
+                                    }
+                                }
+                                if(isset($_POST["pol_off$id_posta"])){
+                                    $sql7 = "DELETE FROM polubienia WHERE id_uzytkownika = '$id_uzytkownika' AND id_posta = '$id_posta'";
                                     $conn->query($sql7);
                                     header("Refresh: 0");
                                     // header("Location: ../html/main.php");
-                                } 
-                            }
-                            else{
-                                echo "<script>alert('Musisz być zalogowany, aby polubić posta.<br>Jeżli go nie posiadasz, możesz je założyć ZA DARMO!')</script>";
-                            }
-                        }
-                        if(isset($_POST["pol_off$id_posta"])){
-                            $sql7 = "DELETE FROM polubienia WHERE id_uzytkownika = '$id_uzytkownika' AND id_posta = '$id_posta'";
-                            $conn->query($sql7);
-                            header("Refresh: 0");
-                            // header("Location: ../html/main.php");
-                        }
+                                }
 
-                        if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"] && $czy != 0){
-                            echo '<form action="../html/main.php" method="post"><button class="pol_on" style="background: transparent; border: none;" name="pol_off'.$id_posta.'"><svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" fill="#ff0000"><path d="m480-144-50-45q-100-89-165-152.5t-102.5-113Q125-504 110.5-545T96-629q0-89 61-150t150-61q49 0 95 21t78 59q32-38 78-59t95-21q89 0 150 61t61 150q0 43-14 83t-51.5 89q-37.5 49-103 113.5T528-187l-48 43Zm0-97q93-83 153-141.5t95.5-102Q764-528 778-562t14-67q0-59-40-99t-99-40q-35 0-65.5 14.5T535-713l-35 41h-40l-35-41q-22-26-53.5-40.5T307-768q-59 0-99 40t-40 99q0 33 13 65.5t47.5 75.5q34.5 43 95 102T480-241Zm0-264Z"/></svg></button>';
+                                if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"] && $czy != 0){
+                                    echo '<form action="../html/main.php" method="post"><button class="pol_on" style="background: transparent; border: none;" name="pol_off'.$id_posta.'"><svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" fill="#ff0000"><path d="m480-144-50-45q-100-89-165-152.5t-102.5-113Q125-504 110.5-545T96-629q0-89 61-150t150-61q49 0 95 21t78 59q32-38 78-59t95-21q89 0 150 61t61 150q0 43-14 83t-51.5 89q-37.5 49-103 113.5T528-187l-48 43Zm0-97q93-83 153-141.5t95.5-102Q764-528 778-562t14-67q0-59-40-99t-99-40q-35 0-65.5 14.5T535-713l-35 41h-40l-35-41q-22-26-53.5-40.5T307-768q-59 0-99 40t-40 99q0 33 13 65.5t47.5 75.5q34.5 43 95 102T480-241Zm0-264Z"/></svg></button>';
+                                }
+                                else {
+                                    echo '<form action="../html/main.php" method="post"><button class="pol_off" name="pol_on'.$id_posta.'"><svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" fill="#000000"><path d="m480-144-50-45q-100-89-165-152.5t-102.5-113Q125-504 110.5-545T96-629q0-89 61-150t150-61q49 0 95 21t78 59q32-38 78-59t95-21q89 0 150 61t61 150q0 43-14 83t-51.5 89q-37.5 49-103 113.5T528-187l-48 43Zm0-97q93-83 153-141.5t95.5-102Q764-528 778-562t14-67q0-59-40-99t-99-40q-35 0-65.5 14.5T535-713l-35 41h-40l-35-41q-22-26-53.5-40.5T307-768q-59 0-99 40t-40 99q0 33 13 65.5t47.5 75.5q34.5 43 95 102T480-241Zm0-264Z"/></svg></button>';
+                                }
+                                echo '<b>'.$row["ilosc_polubien"].'</b></form>
+                            </div>
+                            <script>
+
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    document.querySelectorAll("[id^=\'kom_btn\']").forEach(button => {
+                                        button.addEventListener("click", function() {
+                                            let postId = this.dataset.postId;
+                                            let komentarzeContainer = document.getElementById("kom_section" + postId);
+                                            if (komentarzeContainer) {
+                                                komentarzeContainer.classList.toggle("d-none");
+                                            }
+                                        });
+                                    });
+                                });
+
+                            </script>
+                            <button id="kom_btn'.$id_posta.'" data-post-id="'.$id_posta.'" style="background: transparent; border: none;"><img src="../img/ICONS/comment.svg" style="width: 2rem; aspect-ratio: 1;"></button>
+                        </div>';
+
+                        $sql8 = "SELECT id_komentarza, id_autora_kom, tresc, data_dodania_kom 
+                            FROM komentarz 
+                            WHERE id_posta = '$id_posta' 
+                            ORDER BY data_dodania_kom DESC";
+
+                        $result8 = $conn->query($sql8);
+
+                        if(isset($_SESSION["zalogowany"]) && $_SESSION["zalogowany"]){
+                            if(isset($_POST["btn_kom".$id_posta])){
+                                $tresc = $_POST["tresc_kom".$id_posta];
+                                $sql11 = "INSERT INTO komentarz(id_posta, id_autora_kom, tresc) VALUES (?, ?, ?)";
+                                $stmt11 = $conn->prepare($sql11);
+                                $stmt11->bind_param("iis", $id_posta, $id_uzytkownika, $tresc);
+                                $stmt11->execute();
+                                header("Refresh: 0");
+                            }
+                            echo '<div>
+                                <form action="" method="post" class="d-flex flex-row m-4">
+                                    <textarea class="form-control mr-3" placeholder="Napisz coś" maxlength="300" name="tresc_kom'.$id_posta.'"></textarea>
+                                    <button class="btn" name="btn_kom'.$id_posta.'">Wyślij</button>
+                                </form>
+                            </div>';
                         }
-                        else {
-                            echo '<form action="../html/main.php" method="post"><button class="pol_off" name="pol_on'.$id_posta.'"><svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" fill="#000000"><path d="m480-144-50-45q-100-89-165-152.5t-102.5-113Q125-504 110.5-545T96-629q0-89 61-150t150-61q49 0 95 21t78 59q32-38 78-59t95-21q89 0 150 61t61 150q0 43-14 83t-51.5 89q-37.5 49-103 113.5T528-187l-48 43Zm0-97q93-83 153-141.5t95.5-102Q764-528 778-562t14-67q0-59-40-99t-99-40q-35 0-65.5 14.5T535-713l-35 41h-40l-35-41q-22-26-53.5-40.5T307-768q-59 0-99 40t-40 99q0 33 13 65.5t47.5 75.5q34.5 43 95 102T480-241Zm0-264Z"/></svg></button>';
+                        
+                        echo '<div class="kom-container d-none" id="kom_section'.$id_posta.'">';
+
+                        if ($result8->num_rows > 0) {
+                            while($row = $result8->fetch_assoc()) {
+                                $id_komentarza = $row['id_komentarza'];
+                                $id_autora_kom = $row['id_autora_kom'];
+
+                                $sql9 = "SELECT nazwa_uzytkownika FROM profil WHERE id_profil = '$id_autora_kom'";
+                                $sth9 = $conn->query($sql9);
+                                $result9 = mysqli_fetch_array($sth9);
+                                $nazwa_autora_kom = $result9["nazwa_uzytkownika"];
+
+                                $sql10 = "SELECT zdjecie_profilowe FROM profil WHERE id_profil = '$id_autora_kom'";
+                                $sth10 = $conn->query($sql10);
+                                $result10 = mysqli_fetch_array($sth10);
+                                $pfp_kom = $result10["zdjecie_profilowe"] ? 'data:image;base64,'.base64_encode($result10["zdjecie_profilowe"]) : '../img/pfp/default.png';
+
+                                echo '<div class="kom p-3 mt-4 w-100 bg-white rounded-5" id="kom_'.$id_posta.'_'.$id_komentarza.'">
+                                        <div class="col">
+                                            <div class="d-flex flex-row flex-wrap">
+                                                <div class="px-2 align-content-center">
+                                                    <img src="'. $pfp_kom .'" alt="pfp_kom" style="max-width: 100%; height: 50px; border-radius: 8px;">
+                                                </div>
+                                                <div class="px-1 align-content-center"><b class="kom-name">'.$nazwa_autora_kom.'</b></div>
+                                                <div class="px-1 align-content-center">&#183;</div>
+                                                <div class="px-1 align-content-center"><i class="kom-date">'.$row["data_dodania_kom"].'</i></div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <p>'.$row['tresc'].'</p>
+                                        </div>
+                                    </div>';
+                            }
+                        } else {
+                            echo '<p>Brak komentarzy.</p>';
                         }
-                        echo '<b>'.$row["ilosc_polubien"].'</b></form>
-                    </div>
-                    <img src="../img/ICONS/comment.svg" style="width: 2rem; aspect-ratio: 1;">
-                </div>
-            </div>';
-            }
-        } else {
-            echo "Brak postów.";
-        }
+                        echo '</div></div>';
+                    }
+                } else {
+                    echo "Brak postów.";
+                }
                 
             ?>
             
-            
-            <!-- Przykladowy post
-            <div class="main-item">
-                <div class="main-content d-flex flex-row">
-                    <div class="profile-pic">
-                        <img src="../img/lilija.png" style="width: 70px;">
-                    </div>
-                    <div class="post">
-                        <div class="name-date">
-                            <b class="creator-name"></b>
-                            &#183;
-                            <i class="post-date">00-00-0000</i>
-                        </div>
-                        <p class="post-content">
-                            Tresc posta
-                            Tresc posta
-                            Tresc posta
-                            Tresc posta
-                            Tresc posta
-                            Tresc posta
-                            Tresc posta
-                            Tresc posta
-                            Tresc posta
-                            Tresc posta
-                            Tresc posta
-                            Tresc posta
-                            Tresc posta
-                            Tresc posta
-                        </p>
-                    </div>
-                </div>
-                <div class="post-options d-flex align-items-center justify-content-between">
-                    <div class="post-likes">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" fill="#000000"><path d="m480-144-50-45q-100-89-165-152.5t-102.5-113Q125-504 110.5-545T96-629q0-89 61-150t150-61q49 0 95 21t78 59q32-38 78-59t95-21q89 0 150 61t61 150q0 43-14 83t-51.5 89q-37.5 49-103 113.5T528-187l-48 43Zm0-97q93-83 153-141.5t95.5-102Q764-528 778-562t14-67q0-59-40-99t-99-40q-35 0-65.5 14.5T535-713l-35 41h-40l-35-41q-22-26-53.5-40.5T307-768q-59 0-99 40t-40 99q0 33 13 65.5t47.5 75.5q34.5 43 95 102T480-241Zm0-264Z"/></svg>
-                        <b>0</b>
-                    </div>
-                    <img src="../img/ICONS/comment.svg">
-                </div>
-            </div> -->
         </main>
     </div>
 
